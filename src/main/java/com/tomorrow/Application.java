@@ -10,8 +10,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan("com.tomorrow.dao")
 public class Application {
     public static void main(String[] args) {
-        Long time=System.currentTimeMillis();
         SpringApplication.run(Application.class,args);
-        System.out.println("===应用启动耗时："+(System.currentTimeMillis()-time)+"===");
     }
 }
