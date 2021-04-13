@@ -2,12 +2,241 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="945caf18-4167-4204-91f8-56bbbc3cae4e" name="Default Changelist" comment="test">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/api/clear.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/api/init.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/api/menus.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/api/table.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/api/tableSelect.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/api/upload.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/css/layuimini.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/css/public.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/css/themes/default.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/images/bg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/images/captcha.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/images/donate_qrcode.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/images/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/images/home.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/images/icon-login.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/images/loginbg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/echarts/echarts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/echarts/echartsTheme.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/iconPicker/iconPickerFa.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/layarea/layarea.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/layuimini/miniAdmin.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/layuimini/miniMenu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/layuimini/miniTab.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/layuimini/miniTheme.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/layuimini/miniTongji.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/step-lay/step.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/step-lay/step.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/tableSelect/tableSelect.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/treetable-lay/treetable.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/treetable-lay/treetable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/wangEditor/fonts/w-e-icon.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/wangEditor/wangEditor.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/wangEditor/wangEditor.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/wangEditor/wangEditor.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/wangEditor/wangEditor.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/js/lay-module/wangEditor/wangEditor.min.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/HELP-US-OUT.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/css/font-awesome.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/css/font-awesome.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/fonts/FontAwesome.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/fonts/fontawesome-webfont.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/fonts/fontawesome-webfont.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/fonts/fontawesome-webfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/fonts/fontawesome-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/fonts/fontawesome-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/less/animated.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/less/bordered-pulled.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/less/core.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/less/fixed-width.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/less/font-awesome.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/less/icons.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/less/larger.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/less/list.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/less/mixins.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/less/path.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/less/rotated-flipped.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/less/screen-reader.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/less/stacked.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/less/variables.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/scss/_animated.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/scss/_bordered-pulled.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/scss/_core.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/scss/_fixed-width.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/scss/_icons.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/scss/_larger.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/scss/_list.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/scss/_mixins.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/scss/_path.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/scss/_rotated-flipped.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/scss/_screen-reader.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/scss/_stacked.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/scss/_variables.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/font-awesome-4.7.0/scss/font-awesome.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/jq-module/jquery.particleground.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/jq-module/paigusu.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/jq-module/zyupload/zyupload-1.0.0.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/jq-module/zyupload/zyupload-1.0.0.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/jquery-3.4.1/jquery-3.4.1.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/css/layui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/css/layui.mobile.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/css/modules/code.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/css/modules/laydate/default/laydate.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/css/modules/layer/default/icon-ext.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/css/modules/layer/default/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/css/modules/layer/default/layer.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/css/modules/layer/default/loading-0.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/css/modules/layer/default/loading-1.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/css/modules/layer/default/loading-2.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/font/iconfont.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/font/iconfont.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/font/iconfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/font/iconfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/font/iconfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/0.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/1.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/10.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/11.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/12.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/13.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/14.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/15.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/16.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/17.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/18.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/19.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/2.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/20.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/21.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/22.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/23.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/24.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/25.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/26.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/27.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/28.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/29.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/3.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/30.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/31.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/32.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/33.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/34.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/35.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/36.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/37.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/38.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/39.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/4.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/40.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/41.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/42.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/43.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/44.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/45.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/46.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/47.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/48.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/49.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/5.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/50.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/51.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/52.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/53.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/54.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/55.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/56.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/57.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/58.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/59.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/6.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/60.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/61.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/62.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/63.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/64.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/65.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/66.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/67.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/68.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/69.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/7.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/70.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/71.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/8.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/images/face/9.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/carousel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/code.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/colorpicker.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/element.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/flow.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/form.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/jquery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/laydate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/layedit.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/layer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/laypage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/laytpl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/mobile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/rate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/slider.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/table.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/transfer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/tree.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/upload.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/lay/modules/util.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/layui.all.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/lib/layui-v2.5.5/layui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/404.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/area.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/button.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/color-select.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/editor.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/form-step.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/icon-picker.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/icon.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/layer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/login-1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/login-2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/login-3.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/menu.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/setting.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/table-select.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/table.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/table/add.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/table/edit.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/upload.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/user-password.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/user-setting.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/welcome-1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/welcome-2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/layuimini-2/page/welcome-3.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/page/1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tomorrow/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tomorrow/Application.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -39,6 +268,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
@@ -47,11 +277,16 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/static" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\代码管理\ideaSpace\Staff-Management-System\src\main\resources\templates\page" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\代码管理\ideaSpace\Staff-Management-System\src\main\resources\static" />
+      <recent name="E:\代码管理\ideaSpace\Staff-Management-System\src\main\resources" />
       <recent name="E:\Spring\Spring(idea)\PayrollSystem\src\main" />
     </key>
   </component>
@@ -93,6 +328,9 @@
       <workItem from="1618225105414" duration="136000" />
       <workItem from="1618225243655" duration="1106000" />
       <workItem from="1618226355021" duration="1206000" />
+      <workItem from="1618238100782" duration="1562000" />
+      <workItem from="1618279091332" duration="600000" />
+      <workItem from="1618295745765" duration="1313000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1618226531360</created>
@@ -112,6 +350,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="305" y="51" key="#Application" timestamp="1618238940422">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="305" y="51" key="#Application/0.0.1536.824@0.0.1536.824" timestamp="1618238940422" />
     <state x="285" y="29" key="CommitChangelistDialog2" timestamp="1618226570285">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
