@@ -13,4 +13,5 @@ public class Department {
     private int number;
     private String operator;
     private String createtime;
+    private int is_del;
 }

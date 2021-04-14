@@ -3,6 +3,7 @@ package com.tomorrow.controller;
 import cn.hutool.core.collection.SpliteratorUtil;
 import com.tomorrow.entity.Department;
 import com.tomorrow.service.DepartmentService;
+import com.tomorrow.vo.ReturnResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping
+@RequestMapping("/department")
 public class DepartmentController {
 
     @Autowired
@@ -27,5 +28,11 @@ public class DepartmentController {
     @RequestMapping("/depart")
     public String depart(){
         return "page/department";
+    }
+
+    @RequestMapping("/del")
+    @ResponseBody
+    public ReturnResult del(Department department){
+        return departmentService.del(department.getDepartmentid());
     }
 }

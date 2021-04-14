@@ -5,7 +5,7 @@ layui.use(['form', 'table'], function () {
 
     table.render({
         elem: '#currentTableId',
-        url: '/findAll',
+        url: '/department/findAll',
         toolbar: '#toolbarDemo',
         defaultToolbar: ['filter', 'exports', 'print', {
             title: '提示',
@@ -13,19 +13,19 @@ layui.use(['form', 'table'], function () {
             icon: 'layui-icon-tips'
         }],
         cols: [[
-            {type: "checkbox", width: 50},
-            {field: 'departmentid', width: 80, title: '部门ID', sort: true},
-            {field: 'name', width: 80, title: '名称'},
-            {field: 'number', width: 80, title: '部门人数', sort: true},
-            {field: 'operator', width: 80, title: '操作者'},
-            {field: 'createtime', title: '创建时间', minWidth: 70},
-            {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+            {type: "checkbox", width: 50, unresize: true},
+            {field: 'departmentid', width: 130, title: '部门ID', sort: true, unresize: true},
+            {field: 'name', width: 80, title: '名称', unresize: true},
+            {field: 'number', width: 150, title: '部门人数', sort: true, unresize: true},
+            {field: 'operator', width: 80, title: '操作者', unresize: true},
+            {field: 'createtime', title: '创建时间', minWidth: 70, unresize: true},
+            {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center", unresize: true}
         ]],
         parseData:function(res) {
             return {
                 "code": 0,//解析接口状态
                 "msg": res.message,//解析提示文本
-                "count": res.total,//解析数据长度
+                "count": res.count,//解析数据长度
                 "data": res,//解析数据列表
             };
         },
@@ -55,29 +55,6 @@ layui.use(['form', 'table'], function () {
         return false;
     });
 
-    /**
-     * toolbar监听事件
-     */
-    table.on('toolbar(currentTableFilter)', function (obj) {
-        if (obj.event === 'add') {  // 监听添加操作
-            var index = layer.open({
-                title: '添加用户',
-                type: 2,
-                shade: 0.2,
-                maxmin:true,
-                shadeClose: true,
-                area: ['100%', '100%'],
-                content: '../page/table/add.html',
-            });
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'delete') {  // 监听删除操作
-            var checkStatus = table.checkStatus('currentTableId')
-                , data = checkStatus.data;
-            layer.alert(JSON.stringify(data));
-        }
-    });
 
     //监听表格复选框选择
     table.on('checkbox(currentTableFilter)', function (obj) {
@@ -103,10 +80,14 @@ layui.use(['form', 'table'], function () {
             return false;
         } else if (obj.event === 'delete') {
             layer.confirm('真的删除行么', function (index) {
-                obj.del();
+                console.log(obj);
                 layer.close(index);
+                Ajax("/department/del",false, data, del);
             });
         }
     });
+    function del(result) {
+        window.location.reload();
+    }
 
 });
