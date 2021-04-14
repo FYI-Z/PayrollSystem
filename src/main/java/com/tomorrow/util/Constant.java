@@ -21,4 +21,6 @@ public class Constant {
      * */
     public static final int JWT_ERRCODE_EXPIRE = 1010;         //token过期
     public static final int JWT_ERRCODE_FAIL = 1012;         //验证不通过
+    public static final long JWT_EXPIRE_TIME = 60*10;    //10分钟过期时间
+    public static final String JWT_SECRET = "ioSjcoa21849sa"; //私钥
 }
