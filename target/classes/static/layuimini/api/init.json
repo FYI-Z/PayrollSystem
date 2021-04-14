@@ -44,7 +44,7 @@
 		},
 		{
           "title": "部门管理",
-          "href": "#",
+          "href": "/depart",
           "icon": "fa fa-comments-o",
           "target": "_self",
           "child": []

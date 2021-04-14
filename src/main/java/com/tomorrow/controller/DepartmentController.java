@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping()
+@RequestMapping
 public class DepartmentController {
 
     @Autowired
@@ -23,8 +23,9 @@ public class DepartmentController {
     public List<Department> list(){
         return departmentService.findAll();
     }
-    @RequestMapping(value = "/")
+
+    @RequestMapping("/depart")
     public String depart(){
-        return "department";
+        return "page/department";
     }
 }

@@ -10,12 +10,13 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 @RequestMapping("/PayrollSystem/User")
 public class UserController {
     @Autowired
@@ -32,4 +33,5 @@ public class UserController {
         LoginResultVo loginResultVo = new LoginResultVo().setUser(user).setToken(token);
         return ResultUtil.success(loginResultVo,Constant.RESCODE_SUCCESS,1);
     }
+
 }
