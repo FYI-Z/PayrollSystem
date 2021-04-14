@@ -12,8 +12,8 @@ import lombok.experimental.Accessors;
 @ToString
 @Accessors(chain = true)
 public class ReturnResult<T> {
-    private Integer count;
     private Integer code;
     private String msg;
+    private Integer count;
     private T data;
 }

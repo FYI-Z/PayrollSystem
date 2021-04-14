@@ -14,19 +14,19 @@ layui.use(['form', 'table'], function () {
         }],
         cols: [[
             {type: "checkbox", width: 50, unresize: true},
-            {field: 'departmentid', width: 130, title: '部门ID', sort: true, unresize: true},
-            {field: 'name', width: 80, title: '名称', unresize: true},
-            {field: 'number', width: 150, title: '部门人数', sort: true, unresize: true},
-            {field: 'operator', width: 80, title: '操作者', unresize: true},
-            {field: 'createtime', title: '创建时间', minWidth: 70, unresize: true},
+            {field: 'departmentid', width: 130, title: '部门ID', sort: true, align: "center",unresize: true},
+            {field: 'name', width: 80, title: '部门名称',align: "center", unresize: true},
+            {field: 'number', width: 150, title: '部门人数', sort: true,align: "center", unresize: true},
+            {field: 'operator', width: 80, title: '创建者', align: "center",unresize: true},
+            {field: 'createtime', title: '创建时间', minWidth: 70, align: "center",unresize: true},
             {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center", unresize: true}
         ]],
-        parseData:function(res) {
-            return {
-                "code": 0,//解析接口状态
-                "msg": res.message,//解析提示文本
-                "count": res.count,//解析数据长度
-                "data": res,//解析数据列表
+        parseData:function(res){
+            return{
+                "code":0,//解析接口状态
+                "msg":res.message,//解析提示文本
+                "count":res.total,//解析数据长度
+                "data":res//解析数据列表
             };
         },
         limits: [10, 15, 20, 25, 50, 100],
@@ -37,21 +37,10 @@ layui.use(['form', 'table'], function () {
 
     // 监听搜索操作
     form.on('submit(data-search-btn)', function (data) {
-        var result = JSON.stringify(data.field);
-        layer.alert(result, {
-            title: '最终的搜索信息'
-        });
-
-        //执行搜索重载
-        table.reload('currentTableId', {
-            page: {
-                curr: 1
-            }
-            , where: {
-                searchParams: result
-            }
-        }, 'data');
-
+        //var result=encodeURI(encodeURI(data.field.name));
+        var result = data.field.name;
+        window.location.href=encodeURI("/department/view?name="+result);
+        //Ajax("/department/findMsg",false,result,findResult);
         return false;
     });
 

@@ -18,8 +18,8 @@ public class DepartmentServiceImp implements DepartmentService {
     @Autowired
     private DepartmentDao departmentDao;
     @Override
-    public List<Department> findAll() {
-        return departmentDao.findAll();
+    public List<Department> findAll(int count) {
+        return departmentDao.findAll(count);
     }
 
     @Override
@@ -29,5 +29,10 @@ public class DepartmentServiceImp implements DepartmentService {
         }else{
            return ResultUtil.error(Constant.RESCODE_DELETEERROR,"删除失败");
         }
+    }
+
+    @Override
+    public List<Department> findMsg(String name) {
+        return departmentDao.findMsg(name);
     }
 }

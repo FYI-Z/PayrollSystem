@@ -8,6 +8,7 @@ import java.util.List;
 
 @Service
 public interface DepartmentService {
-    List<Department> findAll();
+    List<Department> findAll(int count);
     ReturnResult del(String departmentid);
+    List<Department>findMsg(String name);
 }
