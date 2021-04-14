@@ -37,7 +37,7 @@ public class DepartmentController {
         return departmentService.del(department.getDepartmentid());
     }
 
-    @RequestMapping(value = "/findMsg")
+    @RequestMapping(value = "/findMsg",produces = "application/json;charset=UTF-8")
     @ResponseBody
     public List<Department> findMsg(String name){
         System.out.println("111111");

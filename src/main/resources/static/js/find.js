@@ -1,5 +1,6 @@
 var Obj = null;
 var count = 0;
+var name;
 var params=(function(){
     var search=decodeURI(window.location.search);
     var params={};		//创建空对象params
@@ -11,13 +12,15 @@ var params=(function(){
             }
         );
     }
+    name = params[1];
     return params;		//返回params
 })();
 layui.use(['form', 'table'], function () {
     var $ = layui.jquery,
         form = layui.form,
         table = layui.table;
-    var Url = encodeURI(encodeURI('/department/findMsg?name='+params[1]));
+    var Url = '/department/findMsg?name='+name;
+    alert(Url);
     table.render({
         elem: '#currentTableId',
         url: Url,
@@ -53,21 +56,10 @@ layui.use(['form', 'table'], function () {
 
     // 监听搜索操作
     form.on('submit(data-search-btn)', function (data) {
-        var result = JSON.stringify(data.field);
-        layer.alert(result, {
-            title: '最终的搜索信息'
-        });
-
-        //执行搜索重载
-        table.reload('currentTableId', {
-            page: {
-                curr: 1
-            }
-            , where: {
-                searchParams: result
-            }
-        }, 'data');
-
+        //var result=encodeURI(encodeURI(data.field.name));
+        var result = data.field.name;
+        window.location.href=encodeURI("/department/view?name="+result);
+        //Ajax("/department/findMsg",false,result,findResult);
         return false;
     });
 
@@ -89,7 +81,6 @@ layui.use(['form', 'table'], function () {
                 layer.full(index);
             });
         } else if (obj.event === 'pay') {  // 监听支付操作
-            //pay(Obj,count);
             if(count<=0||Obj ==null){
                 alert("请选择一条数据进行支付");
                 return;

@@ -21,23 +21,12 @@
                     <div class="layui-form-item">
 
                         <div class="layui-inline">
-                            <label class="layui-form-label">部门ID</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="departmentid" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
                             <label class="layui-form-label">部门名称</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="name" autocomplete="off" class="layui-input">
                             </div>
                         </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">操作者</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="operator" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
+
                         <div class="layui-inline">
                             <button type="submit" class="layui-btn layui-btn-primary" lay-submit
                                     lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
@@ -62,6 +51,10 @@
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
         </script>
+
+        <div style="text-align:center">
+            <button  class="layui-btn" lay-submit lay-filter="saveBtn" id="add-form-submit-btn" onclick='window.location.href="/department/depart";'>返回</button>
+        </div>
 
     </div>
 </div>
