@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tomorrow.dao.UserDao;
 import com.tomorrow.entity.User;
 import com.tomorrow.service.UserService;
+import com.tomorrow.util.RedisUtil;
+import com.tomorrow.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,9 @@ public class UserServiceImp implements UserService {
         queryWrapper.eq("password", user.getPassword());
         user = userDao.selectOne(queryWrapper);
         if(user != null){
-            return "登录成功！";
+            String token = TokenUtil.geneToken(user); //生成token
+            RedisUtil.setString(user.getUserId(),token); //存进redis
+            return token;
         }
         return null;
     }
