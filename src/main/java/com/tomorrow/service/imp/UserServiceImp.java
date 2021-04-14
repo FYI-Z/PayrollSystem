@@ -26,6 +26,7 @@ public class UserServiceImp implements UserService {
             String token = TokenUtil.geneToken(user); //生成token
             RedisUtil.setString(user.getUserId(),token); //存进redis
             return token;
+//            return "登录成功！";
         }
         return null;
     }
