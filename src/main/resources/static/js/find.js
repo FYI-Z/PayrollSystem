@@ -2,25 +2,29 @@ var Obj = null;
 var count = 0;
 var name;
 var params=(function(){
-    var search=decodeURI(window.location.search);
-    var params={};		//创建空对象params
-    if(search!=""){		//如果search不是空字符串
-        search.slice(1).split("&").forEach(	//?username=zhangdong&pwd=123456;//search去开头?，按&切割为数组，forEach
-            function(val){
-                var arr=val.split("=");		//将当前元素值按=切割，保存在arr中
-                params=arr;		//向params中添加一个元素,属性名为arr[0],值为arr[1]
-            }
-        );
+    //自动获取地址栏链接带？以及后面的字符串
+    var url=decodeURI(window.location.search);
+    //定义一个空对象
+    var obj = {};
+    //如果字符串里面存在?
+    if(url.indexOf("?") != -1){
+        //从url的索引1开始提取字符串
+        var str = url.substring(1);
+        //如果存在&符号，则再以&符号进行分割
+        var arr = str.split("&");
+        //遍历数组
+        for(var i=0; i<arr.length; i++){
+            obj[arr[i].split("=")[0]] = unescape(arr[i].split("=")[1]);
+        }
     }
-    name = params[1];
-    return params;		//返回params
+    console.log(obj);
+    return obj;
 })();
 layui.use(['form', 'table'], function () {
     var $ = layui.jquery,
         form = layui.form,
         table = layui.table;
-    var Url = '/department/findMsg?name='+name;
-    alert(Url);
+    var Url = '/department/findMsg?name='+params.name+"&operator="+params.operator;
     table.render({
         elem: '#currentTableId',
         url: Url,
@@ -40,7 +44,6 @@ layui.use(['form', 'table'], function () {
             {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center", unresize: true}
         ]],
         parseData:function(res){
-            console.log(res);
             return{
                 "code":0,//解析接口状态
                 "msg":res.message,//解析提示文本
@@ -56,9 +59,13 @@ layui.use(['form', 'table'], function () {
 
     // 监听搜索操作
     form.on('submit(data-search-btn)', function (data) {
-        //var result=encodeURI(encodeURI(data.field.name));
-        var result = data.field.name;
-        window.location.href=encodeURI("/department/view?name="+result);
+        var name = data.field.name;
+        var operator = data.field.operator;
+        if(name==""&&operator==""){
+            alert("至少填写一项!");
+            return ;
+        }
+        window.location.href=encodeURI("/department/view?name="+name+"&operator="+operator);
         //Ajax("/department/findMsg",false,result,findResult);
         return false;
     });

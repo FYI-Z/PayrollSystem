@@ -37,9 +37,13 @@ layui.use(['form', 'table'], function () {
 
     // 监听搜索操作
     form.on('submit(data-search-btn)', function (data) {
-        //var result=encodeURI(encodeURI(data.field.name));
-        var result = data.field.name;
-        window.location.href=encodeURI("/department/view?name="+result);
+        var name = data.field.name;
+        var operator = data.field.operator;
+        if(name==""&&operator==""){
+            alert("至少填写一项!");
+            return ;
+        }
+        window.location.href=encodeURI("/department/view?name="+name+"&operator="+operator);
         //Ajax("/department/findMsg",false,result,findResult);
         return false;
     });
@@ -47,6 +51,7 @@ layui.use(['form', 'table'], function () {
 
     //监听表格复选框选择
     table.on('checkbox(currentTableFilter)', function (obj) {
+        alert(obj);
         console.log(obj)
     });
 

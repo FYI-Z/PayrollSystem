@@ -32,7 +32,27 @@ public class DepartmentServiceImp implements DepartmentService {
     }
 
     @Override
-    public List<Department> findMsg(String name) {
-        return departmentDao.findMsg(name);
+    public List<Department> findMsg(String name,String operator) {
+        return departmentDao.findMsg(name,operator);
+    }
+
+    @Override
+    public List<Department> findOrMsg(String name, String operator) {
+        return departmentDao.findOrMsg(name,operator);
+    }
+
+    /**
+     *
+     * @param name
+     * @param operator
+     * @return
+     */
+    @Override
+    public List<Department> findResult(String name,String operator){
+        if(name==""||operator==""){
+            return findOrMsg(name,operator);
+        }else{
+            return findMsg(name,operator);
+        }
     }
 }

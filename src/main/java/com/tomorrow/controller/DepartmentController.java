@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -39,15 +40,15 @@ public class DepartmentController {
 
     @RequestMapping(value = "/findMsg",produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public List<Department> findMsg(String name){
-        System.out.println("111111");
-        System.out.println(name);
-        System.out.println("222222");
-        return departmentService.findMsg(name);
+    public List<Department> findMsg(@RequestParam  String name,String operator){
+        return departmentService.findResult(name,operator);
 
     }
     @RequestMapping("/view")
     public String view(){
         return "page/resultfind";
     }
+
+    @RequestMapping("/test")
+    public String test(){return "page/test";}
 }
