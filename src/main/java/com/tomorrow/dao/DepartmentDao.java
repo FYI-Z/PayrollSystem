@@ -21,9 +21,12 @@ public interface DepartmentDao {
             "</script>")
     int del(@Param("departmentid") String departmentid);
 
-    @Select("select * from department where is_del=0 and name=#{name} and operator=#{operator}")
+    @Select("select distinct * from department where is_del=0 and locate(#{name},name) and locate(#{operator},operator)")
     List<Department> findMsg(@Param("name") String name,@Param("operator")String operator);
 
-    @Select("select * from department where is_del=0 and name=#{name} or operator=#{operator}")
-    List<Department> findOrMsg(@Param("name") String name,@Param("operator")String operator);
+    @Select("select distinct * from department where is_del=0 and locate(#{name},name)")
+    List<Department> findMsgByName(@Param("name") String name);
+
+    @Select("select distinct * from department where is_del=0 and locate(#{operator},operator)")
+    List<Department> findMsgByOper(@Param("operator") String operator);
 }

@@ -17,6 +17,7 @@ public class DepartmentServiceImp implements DepartmentService {
 
     @Autowired
     private DepartmentDao departmentDao;
+
     @Override
     public List<Department> findAll(int count) {
         return departmentDao.findAll(count);
@@ -30,15 +31,6 @@ public class DepartmentServiceImp implements DepartmentService {
            return ResultUtil.error(Constant.RESCODE_DELETEERROR,"删除失败");
         }
     }
-
-    public List<Department> findMsg(String name,String operator) {
-        return departmentDao.findMsg(name,operator);
-    }
-
-    public List<Department> findOrMsg(String name, String operator) {
-        return departmentDao.findOrMsg(name,operator);
-    }
-
     /**
      *
      * @param name
@@ -47,10 +39,26 @@ public class DepartmentServiceImp implements DepartmentService {
      */
     @Override
     public List<Department> findResult(String name,String operator){
-        if(name==""||operator==""){
-            return findOrMsg(name,operator);
-        }else{
+        if(name!=""&&operator!=""){
             return findMsg(name,operator);
+        }else if(name==""&&operator!=""){
+            return findMsgByOper(operator);
+        }else{
+            return findMsgByName(name);
         }
     }
+
+    public List<Department> findMsg(String name,String operator) {
+        return departmentDao.findMsg(name,operator);
+    }
+
+    public List<Department> findMsgByOper(String operator){
+        return departmentDao.findMsgByOper(operator);
+    }
+    public List<Department> findMsgByName(String name){
+        return departmentDao.findMsgByName(name);
+    }
+
+
+
 }
