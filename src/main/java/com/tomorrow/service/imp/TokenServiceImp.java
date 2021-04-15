@@ -1,20 +1,24 @@
-package com.tomorrow.util;
+package com.tomorrow.service.imp;
 
 import com.tomorrow.entity.User;
+import com.tomorrow.service.TokenService;
+import com.tomorrow.util.Constant;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-public class TokenUtil {
-
+@Service
+public class TokenServiceImp implements TokenService {
     /**
      * 生成JWT
      * @param user
      * @return
      */
-    public static String geneToken(User user){
+    @Override
+    public String geneToken(User user){
         if(user==null){
             return null;
         }
@@ -28,7 +32,7 @@ public class TokenUtil {
                 .claim("phone",user.getPhone())
                 .claim("permission",user.getPermission())    //声明载荷
                 .setIssuedAt(new Date()) //设置jwt的签发时间
-                .signWith(SignatureAlgorithm.HS256,Constant.JWT_SECRET) //设置签名使用的签名算法和签名使用的密钥
+                .signWith(SignatureAlgorithm.HS256, Constant.JWT_SECRET) //设置签名使用的签名算法和签名使用的密钥
                 .compact(); //生成xxxx.xxxx.xxx样式
         return token;
     }
@@ -37,7 +41,8 @@ public class TokenUtil {
      * 解密token
      * @return token
      */
-    public static Claims parseToken(String token){
+    @Override
+    public Claims parseToken(String token){
         try{
             final Claims claims = Jwts.parser()
                     .setSigningKey(Constant.JWT_SECRET)
@@ -49,22 +54,4 @@ public class TokenUtil {
         }
     }
 
-    /**
-     * 校验token
-     * @param useridByFront
-     * @param token
-     * @return
-     */
-    public static int checkToken(String useridByFront,String token){
-        String useridByToken = (String) parseToken(token).get("userId");
-        //传进的userid与解析出的userid不等
-        if(!useridByFront.equals(useridByToken)){
-            return 0;
-        }
-        String value = RedisUtil.getString(useridByToken);
-        if(value==null){ //已过期
-            return -1;
-        }
-        return 1; //验证通过
-    }
 }

@@ -1,12 +1,11 @@
 package com.tomorrow.service.imp;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.tomorrow.dao.UserDao;
 import com.tomorrow.entity.User;
+import com.tomorrow.service.RedisService;
+import com.tomorrow.service.TokenService;
 import com.tomorrow.service.UserService;
-import com.tomorrow.util.RedisUtil;
-import com.tomorrow.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +15,10 @@ import java.util.List;
 public class UserServiceImp implements UserService {
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private TokenService tokenService;
+    @Autowired
+    private RedisService redisService;
     @Override
     public String login(User user) {
         if(user == null){
@@ -26,8 +29,8 @@ public class UserServiceImp implements UserService {
         queryWrapper.eq("password", user.getPassword());
         user = userDao.selectOne(queryWrapper);
         if(user != null){
-            String token = TokenUtil.geneToken(user); //生成token
-            RedisUtil.setString(user.getUserId(),token); //存进redis
+            String token = tokenService.geneToken(user); //生成token
+            redisService.setString(user.getUserId(),token); //存进redis
             return token;
         }
         return null;
