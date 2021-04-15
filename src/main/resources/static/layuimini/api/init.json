@@ -5,7 +5,7 @@
   },
   "logoInfo": {
     "title": "后台管理",
-    "image": "layuimini-2/layuimini-2/images/logo.png",
+    "image": "images/logo.png",
     "href": ""
   },
   "menuInfo": [
@@ -17,48 +17,48 @@
       "child": [
         {
           "title": "个人信息",
-          "href": "#",
+          "href": "",
           "icon": "fa fa-home",
           "target": "_self"
         },
         {
           "title": "用户管理",
-          "href": "#",
+          "href": "",
           "icon": "fa fa-calendar",
           "target": "_self",
           "child": []
         },
 		{
 		  "title": "权限管理",
-		  "href": "#",
+		  "href": "",
 		  "icon": "fa fa-file-text",
 		  "target": "_self",
 		  "child": []
 		},
 		{
 		  "title": "薪资管理",
-		  "href": "#",
+		  "href": "",
 		  "icon": "fa fa-file-text",
 		  "target": "_self",
 		  "child": []
 		},
 		{
           "title": "部门管理",
-          "href": "/depart",
+          "href": "",
           "icon": "fa fa-comments-o",
           "target": "_self",
           "child": []
         },
 		{
           "title": "考勤记录",
-          "href": "#",
+          "href": "",
           "icon": "fa fa-comments-o",
           "target": "_self",
           "child": []
         },
 		{
           "title": "统计",
-          "href": "#",
+          "href": "",
           "icon": "fa fa-comments-o",
           "target": "_self",
           "child": []
