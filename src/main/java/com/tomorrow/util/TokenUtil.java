@@ -59,8 +59,6 @@ public class TokenUtil {
         String useridByToken = (String) parseToken(token).get("userId");
         //传进的userid与解析出的userid不等
         if(!useridByFront.equals(useridByToken)){
-            System.out.println(useridByFront);
-            System.out.println(useridByToken);
             return 0;
         }
         String value = RedisUtil.getString(useridByToken);

@@ -37,6 +37,7 @@ public class RedisUtil {
             return jedis;
         }catch (Exception e){
             e.printStackTrace();
+            System.out.println("初始化失败！");
             return null;
         }
     }

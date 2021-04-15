@@ -1,6 +1,7 @@
 package com.tomorrow.service.imp;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.tomorrow.dao.UserDao;
 import com.tomorrow.entity.User;
 import com.tomorrow.service.UserService;
@@ -44,17 +45,24 @@ public class UserServiceImp implements UserService {
         return user;
     }
 
-    /**
-     * 查询所有人的权限
-     * @return
-     */
     @Override
     public List<User> findAllUserPower() {
         User user = null;
         QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
+        queryWrapper.select("userid","permission");
         List<User> list= userDao.selectList(queryWrapper);
         return list;
     }
+
+    @Override
+    public int updateUserPower(String userId, String power) {
+        User user = userDao.selectById(userId);
+        user.setPermission(power);
+        QueryWrapper<User> updateWrapper = new QueryWrapper<User>();
+        updateWrapper.eq("userid",userId);
+        return userDao.update(user, updateWrapper);
+    }
+
 
     @Override
     public User updataUser(User user) {
