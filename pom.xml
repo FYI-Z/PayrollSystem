@@ -112,6 +112,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/echarts echarts专用-->
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>echarts</artifactId>
+            <version>4.7.0</version>
+        </dependency>
+
     </dependencies>
 </project>
 

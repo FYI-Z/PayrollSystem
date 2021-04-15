@@ -11,12 +11,10 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+
 @RequestMapping("/PayrollSystem/User")
 public class UserController {
     @Autowired
@@ -24,6 +22,7 @@ public class UserController {
     @ApiOperation(value = "用户登录接口")
     @ApiImplicitParam()
     @PostMapping("/login")
+    @ResponseBody
     public ReturnResult login(@RequestBody User user){
         String token = userService.login(user);
         if(token == null){
@@ -34,4 +33,8 @@ public class UserController {
         return ResultUtil.success(loginResultVo,Constant.RESCODE_SUCCESS,1);
     }
 
+    @RequestMapping(value = "/userinfo")
+    public String userinfo(){
+        return "page/userinfo";
+    }
 }
