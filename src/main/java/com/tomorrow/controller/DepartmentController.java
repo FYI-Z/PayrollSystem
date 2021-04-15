@@ -51,4 +51,6 @@ public class DepartmentController {
 
     @RequestMapping("/test")
     public String test(){return "page/test";}
+
+
 }

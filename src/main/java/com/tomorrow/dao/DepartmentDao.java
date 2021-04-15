@@ -21,23 +21,12 @@ public interface DepartmentDao {
             "</script>")
     int del(@Param("departmentid") String departmentid);
 
-//    @Select("<script>" +
-//            "select *from department where "+
-//            "<if test='department!=null'>departmentid=#{departmentid} </if>" +
-//            "<if test='name!=null' and department!=null'>and </if>" +
-//            "<if test='name!=null'>name=#{name}</if>" +
-//            "<if test='name!=null' and department!=null and operator!=null'>and</if>" +
-//            "<if test='operator!=null'>operator=#{operator}</if>" +
-//            "</script>")
-//    @Select("<script>" +
-//            "select * from department where is_del=0 and " +
-//            "<if test='name!=null and operator!=null'>name=#{name} and operator=#{operator} </if>" +
-//            "<if test='name==null and operator!=null'>name=#{name} </if>" +
-//            "<if test='name!=null and operator==null'>operator=#{operator} </if>" +
-//            "</script")
-    @Select("select * from department where is_del=0 and name=#{name} and operator=#{operator}")
+    @Select("select distinct * from department where is_del=0 and locate(#{name},name) and locate(#{operator},operator)")
     List<Department> findMsg(@Param("name") String name,@Param("operator")String operator);
 
-    @Select("select * from department where is_del=0 and name=#{name} or operator=#{operator}")
-    List<Department> findOrMsg(@Param("name") String name,@Param("operator")String operator);
+    @Select("select distinct * from department where is_del=0 and locate(#{name},name)")
+    List<Department> findMsgByName(@Param("name") String name);
+
+    @Select("select distinct * from department where is_del=0 and locate(#{operator},operator)")
+    List<Department> findMsgByOper(@Param("operator") String operator);
 }
