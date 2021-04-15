@@ -34,4 +34,9 @@ public class UserController {
         return ResultUtil.success(loginResultVo,Constant.RESCODE_SUCCESS,1);
     }
 
+    @RequestMapping("/")
+    public String index(){
+        return "page/department";
+    }
+
 }

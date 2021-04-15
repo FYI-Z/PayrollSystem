@@ -31,12 +31,10 @@ public class DepartmentServiceImp implements DepartmentService {
         }
     }
 
-    @Override
     public List<Department> findMsg(String name,String operator) {
         return departmentDao.findMsg(name,operator);
     }
 
-    @Override
     public List<Department> findOrMsg(String name, String operator) {
         return departmentDao.findOrMsg(name,operator);
     }
