@@ -33,7 +33,6 @@
                             </div>
                         </div>
 
-
                         <div class="layui-inline">
                             <button type="submit" class="layui-btn layui-btn-primary" lay-submit
                                     lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
@@ -48,7 +47,7 @@
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
                 <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加部门</button>
-<!--                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除</button>-->
+                <!--                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除</button>-->
             </div>
         </script>
 
@@ -59,11 +58,15 @@
             <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
         </script>
 
+        <div style="text-align:center">
+            <button  class="layui-btn" lay-submit lay-filter="saveBtn" id="add-form-submit-btn" onclick='window.location.href="/department/depart";'>返回</button>
+        </div>
+
     </div>
 </div>
 <script src="../layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script src="../layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-<script src="../js/department.js" charset="utf-8"></script>
+<script src="../js/find.js" charset="utf-8"></script>
 <script src="../js/Ajax.js" charset="utf-8"></script>
 <script src="../js/router.js" charset="utf-8"></script>
 </body>

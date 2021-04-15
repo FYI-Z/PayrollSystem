@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
     <link rel="stylesheet" href="../layuimini/css/public.css" media="all">
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="//unpkg.com/layui@2.6.4/dist/layui.js"></script>
 </head>
 <body>
 <div class="layuimini-container">
@@ -20,18 +21,10 @@
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
 
-                        <div class="layui-inline">
-                            <label class="layui-form-label">部门名称</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="name" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">操作者</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="operator" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
+                        <button class="layui-btn" id="demo1">
+                            下拉菜单
+                            <i class="layui-icon layui-icon-down layui-font-12"></i>
+                        </button>
 
 
                         <div class="layui-inline">
@@ -48,7 +41,7 @@
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
                 <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加部门</button>
-<!--                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除</button>-->
+                <!--                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除</button>-->
             </div>
         </script>
 
@@ -62,9 +55,9 @@
     </div>
 </div>
 <script src="../layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-<script src="../layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script src="../js/department.js" charset="utf-8"></script>
 <script src="../js/Ajax.js" charset="utf-8"></script>
 <script src="../js/router.js" charset="utf-8"></script>
+<script src="../js/test.js" charset="utf-8"></script>
 </body>
 </html>

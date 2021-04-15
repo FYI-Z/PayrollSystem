@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://106.52.112.29:3306/db_payrollsystem?characterEncoding=UTF-8
+    url: jdbc:mysql://106.52.112.29:3306/db_payrollsystem?useUnicode=true&characterEncoding=UTF-8
     username: Admin
     password: Admin123!
   redis:
@@ -19,3 +19,6 @@ logging:
   level:
     root: info
     com.tomorrow.dao: debug
+
+
+
