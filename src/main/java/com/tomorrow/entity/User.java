@@ -35,5 +35,4 @@ public class User {
     public String phone;
     @TableField("permission")
     public String permission;
-
 }

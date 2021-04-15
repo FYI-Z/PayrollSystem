@@ -47,11 +47,14 @@ public class RedisUtil {
      * @param value
      * @return
      */
-    public static void setString(String key,String value){
+    public static int setString(String key,String value){
+        if(key==null)
+            return 0;
         jedis = getJedis();
         jedis.set(key,value);
         jedis.expire(key,Constant.REDIS_EXPIRE_TIME);
         jedis.close();
+        return 1;
     }
 
     /**
@@ -59,10 +62,13 @@ public class RedisUtil {
      * @param key
      * @param redisExpireTime
      */
-    public static void flushExpire(String key, int redisExpireTime){
+    public static int flushExpire(String key, int redisExpireTime){
+        if(key==null)
+            return 0;
         jedis = getJedis();
         jedis.expire(key,Constant.REDIS_EXPIRE_TIME);
         jedis.close();
+        return 1;
     }
     /**
      * 取字符串
@@ -70,10 +76,23 @@ public class RedisUtil {
      * @return
      */
     public static String getString(String key){
+        if(key==null)
+            return null;
         jedis = getJedis();
         String value = jedis.get(key);
         jedis.close();
         return value;
     }
 
+    /**
+     * 删除key
+     */
+    public static int delString(String key){
+        if(key==null)
+            return 0;
+        jedis = getJedis();
+        jedis.del(key);
+        jedis.close();
+        return 1;
+    }
 }

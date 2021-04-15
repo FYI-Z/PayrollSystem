@@ -9,6 +9,8 @@ import com.tomorrow.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImp implements UserService {
     @Autowired
@@ -26,7 +28,6 @@ public class UserServiceImp implements UserService {
             String token = TokenUtil.geneToken(user); //生成token
             RedisUtil.setString(user.getUserId(),token); //存进redis
             return token;
-//            return "登录成功！";
         }
         return null;
     }
@@ -41,6 +42,18 @@ public class UserServiceImp implements UserService {
         queryWrapper.eq("userId", userId);
         user = userDao.selectOne(queryWrapper);
         return user;
+    }
+
+    /**
+     * 查询所有人的权限
+     * @return
+     */
+    @Override
+    public List<User> findAllUserPower() {
+        User user = null;
+        QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
+        List<User> list= userDao.selectList(queryWrapper);
+        return list;
     }
 
     @Override

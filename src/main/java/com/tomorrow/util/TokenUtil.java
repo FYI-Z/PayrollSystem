@@ -19,7 +19,7 @@ public class TokenUtil {
             return null;
         }
         String token = Jwts.builder().setSubject(user.getUserId()) //jwt的所有者
-                .claim("userid",user.getUserId())
+                .claim("userId",user.getUserId())
                 .claim("name",user.getName())
                 .claim("sex",user.getSex())
                 .claim("age",user.getSex())
@@ -47,5 +47,26 @@ public class TokenUtil {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * 校验token
+     * @param useridByFront
+     * @param token
+     * @return
+     */
+    public static int checkToken(String useridByFront,String token){
+        String useridByToken = (String) parseToken(token).get("userId");
+        //传进的userid与解析出的userid不等
+        if(!useridByFront.equals(useridByToken)){
+            System.out.println(useridByFront);
+            System.out.println(useridByToken);
+            return 0;
+        }
+        String value = RedisUtil.getString(useridByToken);
+        if(value==null){ //已过期
+            return -1;
+        }
+        return 1; //验证通过
     }
 }
