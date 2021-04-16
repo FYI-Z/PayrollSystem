@@ -6,33 +6,18 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tomorrow.dao.AttendanceDao;
 import com.tomorrow.entity.Attendance;
 import com.tomorrow.service.AttendanceService;
-import com.tomorrow.vo.AttendanceResultVo;
-import org.apache.ibatis.session.SqlSession;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.swing.text.html.parser.Entity;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
 public class AttendanceServiceImp implements AttendanceService {
-    AttendanceResultVo attendanceResultVo = new AttendanceResultVo();
     @Autowired
     private AttendanceDao attendanceDao;
-    /*@Test
-    public void test(){
-        SimpleDateFormat formatter= new SimpleDateFormat("yyyyMMdd");
-        Date date = new Date(System.currentTimeMillis());
-        System.out.println(formatter.format(date));
-    }*/
-
+    //分页取出考勤记录
     @Override
     public List<Attendance> showAll(int current, int size) {
         QueryWrapper<Attendance> queryWrapper = new QueryWrapper<>();
@@ -42,19 +27,40 @@ public class AttendanceServiceImp implements AttendanceService {
         page.getRecords().forEach(attendance -> attendanceList.add(attendance));
         return attendanceList;
     }
-
+    //模糊查询
+    @Override
+    public List<Attendance> findAll(String key) {
+        if(key == null){
+            return null;
+        }
+        QueryWrapper<Attendance> queryWrapper = new QueryWrapper<>();
+        queryWrapper.and(
+                wrapper ->
+                        wrapper.like("attendanceid",key).or().like("userid",key).or().like("leave_hours",key)
+                                .or().like("late_hours",key).or().like("absenteeism_days",key).or().like("usual_overtime_hours",key)
+                                .or().like("weekend_overtime_hours",key).or().like("festival_overtime_hours",key).or().like("attendance_time",key)
+        );
+        List<Attendance> attendanceList = attendanceDao.selectList(queryWrapper);
+        return attendanceList;
+    }
+    //通过考勤ID查考勤记录
     @Override
     public Attendance findAttendanceById(String attendanceid) {
         Attendance attendance = null;
         attendance = attendanceDao.selectById(attendanceid);
         return attendance;
     }
-
+    //修改考勤记录
     @Override
-    public Attendance updataAttendance(Attendance attendance) {
-        return null;
+    public int updataAttendance(Attendance attendance) {
+        int count = 0;
+        if(attendance.getAttendanceid() == null || attendance.getUserid() == null){
+            return count;
+        }
+        count = attendanceDao.updateById(attendance);
+        return count;
     }
-
+    //删除考勤记录
     @Override
     public List<Attendance> delAttendance(List<String> list) {
         List<Attendance> attendanceList = new ArrayList<>();
@@ -67,27 +73,21 @@ public class AttendanceServiceImp implements AttendanceService {
         }
         return attendanceList;
     }
-
+    //添加考勤记录
     @Override
     public Attendance addAttendance(Attendance attendance) {
-        if(attendance == null){
-            attendanceResultVo.setRetmsg("数据为空");
-            return attendance;
+        if(attendance.getUserid() == null){
+            return null;
         }
         SimpleDateFormat formatter= new SimpleDateFormat("yyyyMMdd");
         Date date = new Date(System.currentTimeMillis());
         attendance.setAttendanceid(formatter.format(date) + attendance.getUserid());
-        if(attendanceDao.selectById(attendance.getAttendanceid()) != null){
-            //return "该用户当天考勤数据已存在";
-            attendanceResultVo.setRetmsg("该用户当天考勤数据已存在");
-            return attendance;
+        if(attendanceDao.selectById(attendance.getAttendanceid()) != null){     //该用户当天考勤数据已存在
+            return null;
         }
         formatter= new SimpleDateFormat("yyyy年MM月dd日");
         attendance.setAttendanceTime(formatter.format(date));
         attendanceDao.insert(attendance);
-        //return "添加成功";
-        attendanceResultVo.setRetmsg("添加成功");
         return attendance;
     }
-
 }
