@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 
 @RequestMapping("/PayrollSystem/User")
 public class UserController {
@@ -22,7 +22,6 @@ public class UserController {
     @ApiOperation(value = "用户登录接口")
     @ApiImplicitParam()
     @PostMapping("/login")
-    @ResponseBody
     public ReturnResult login(@RequestBody User user){
         String token = userService.login(user);
         if(token == null){
@@ -36,5 +35,11 @@ public class UserController {
     @RequestMapping(value = "/userinfo")
     public String userinfo(){
         return "page/userinfo";
+    }
+
+    @RequestMapping(value = "/findByUserId")
+    public  ReturnResult findByUserId (@RequestParam String userid){
+        User user = userService.findUserById(userid);
+        return  ResultUtil.success(user,Constant.RESCODE_SUCCESS,1);
     }
 }
