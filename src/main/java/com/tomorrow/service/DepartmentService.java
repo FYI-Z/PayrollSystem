@@ -15,4 +15,7 @@ public interface DepartmentService {
 
     List<Department> findResult(String name,String operator);
 
+    ReturnResult add(Department department);
+
+    ReturnResult update(String name,String Oname,String remark);
 }

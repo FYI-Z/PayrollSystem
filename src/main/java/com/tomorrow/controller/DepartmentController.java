@@ -8,13 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping(value = "/department")
 public class DepartmentController {
 
@@ -22,35 +20,29 @@ public class DepartmentController {
     private DepartmentService departmentService;
 
     @RequestMapping(value = "/findAll")
-    @ResponseBody
     public List<Department> list(int limit){
         return departmentService.findAll(limit);
     }
 
-    @RequestMapping("/depart")
-    public String depart(){
-        return "page/department";
-    }
 
     @RequestMapping("/del")
-    @ResponseBody
     public ReturnResult del(Department department){
         return departmentService.del(department.getDepartmentid());
     }
 
     @RequestMapping(value = "/findMsg",produces = "application/json;charset=UTF-8")
-    @ResponseBody
     public List<Department> findMsg(@RequestParam  String name,String operator){
         return departmentService.findResult(name,operator);
 
     }
-    @RequestMapping("/view")
-    public String view(){
-        return "page/resultfind";
+    @RequestMapping(value = "/add",produces = "application/json;charset=UTF-8")
+    public ReturnResult add( Department department){
+        return departmentService.add(department);
     }
 
-    @RequestMapping("/test")
-    public String test(){return "page/test";}
-
+    @RequestMapping("/update")
+    public ReturnResult update(@RequestParam String name,String Oname,String remark){
+        return departmentService.update(name,Oname,remark);
+    }
 
 }
