@@ -43,7 +43,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/getAllPower")
-    public ReturnResult getUserAllPower(@RequestParam String userId, @RequestParam String token){
+    public ReturnResult getUserAllPower(@RequestParam String userId,  @RequestParam String token){
         //验证token
         int res = checkService.checkToken(userId,token);
         if(Constant.JWT_ERRCODE_EXPIRE==res){
@@ -64,14 +64,22 @@ public class UserController {
      * 庞海
      * 更新权限
      * @param userId
+     * @param id
      * @param token
      * @param power
      * @return
      */
     @GetMapping("/updateUserPower")
-    public ReturnResult updateUserPower(@RequestParam String userId, @RequestParam String token, @RequestParam String power){
+    public ReturnResult updateUserPower(@RequestParam String userId, @RequestParam String id,  @RequestParam String token, @RequestParam String power){
         //验证token
-        int res = checkService.checkToken(userId,token);
+        int res;
+        try{
+            res = checkService.checkToken(userId,token);
+        }catch (Exception e){
+            e.printStackTrace();
+            res = Constant.JWT_ERRCODE_FAIL;
+        }
+
         if(Constant.JWT_ERRCODE_EXPIRE==res){
             return ResultUtil.error(Constant.JWT_ERRCODE_EXPIRE,"token已过期");
         }else if(Constant.JWT_ERRCODE_FAIL==res){
@@ -82,10 +90,44 @@ public class UserController {
             return ResultUtil.error(Constant.RESCODE_NOAUTH,"无权操作");
         }
         //修改权限
-        if(userService.updateUserPower(userId,power)!=0){
+        if(userService.updateUserPower(id,power)!=0){
             return ResultUtil.success("修改成功",Constant.RESCODE_SUCCESS,1);
         }else{
             return ResultUtil.error(Constant.RESCODE_MODIFYERROR,"修改失败");
         }
+    }
+
+    /**
+     * 庞海
+     * 搜索用户
+     * @param userId
+     * @param id
+     * @param token
+     * @param power
+     * @return
+     */
+    @GetMapping("/searchPower")
+    public ReturnResult searchUserPower(@RequestParam String userId, @RequestParam String id,  @RequestParam String token, @RequestParam String power){
+        //验证token
+        int res;
+        try{
+            res = checkService.checkToken(userId,token);
+        }catch (Exception e){
+            e.printStackTrace();
+            res = Constant.JWT_ERRCODE_FAIL;
+        }
+
+        if(Constant.JWT_ERRCODE_EXPIRE==res){
+            return ResultUtil.error(Constant.JWT_ERRCODE_EXPIRE,"token已过期");
+        }else if(Constant.JWT_ERRCODE_FAIL==res){
+            return ResultUtil.error(Constant.JWT_ERRCODE_FAIL,"验证不通过");
+        }
+        //验证是否有权操作
+        if(checkService.checkPower(userId,Constant.PRI_PERMISION)==Constant.RESCODE_NOAUTH){
+            return ResultUtil.error(Constant.RESCODE_NOAUTH,"无权操作");
+        }
+        //搜索
+        List<User> list = userService.findUserPower(id);
+        return ResultUtil.success(list,Constant.RESCODE_SUCCESS,list.size());
     }
 }

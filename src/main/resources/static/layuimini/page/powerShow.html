@@ -11,45 +11,62 @@
 <script src="../../js/Ajax.js" charset="utf-8"></script>
 </head>
 <body>
+	<div class="demoTable">
+		搜索工号：
+		<div class="layui-inline">
+			<input class="layui-input" id="sea" name="keyword" id="demoReload" autocomplete="off">
+		</div>
+		<button class="layui-btn" id="sea" onclick="search()">搜索</button>
+	</div>
 	<table lay-filter="dataList" class="layui-hide" id="order_All"></table>
   	<script type="text/html" id="power0">
 		{{#   var list = d.permission.split(',');}}
-		{{#  if(list[0] != 0){ }}
+		{{#  if(d.userId!=localStorage.userId){ }}
+		{{#  if(list[0] != 0 ){ }}
   			<input type="checkbox" checked="" name="{{list}}" value="{{d.userId}}" lay-skin="switch" lay-text="开启|关闭" lay-filter="power0Demo">
 		{{#  } else { }}
 			<input type="checkbox" name="{{list}}" value="{{d.userId}}" lay-skin="switch" lay-text="开启|关闭" lay-filter="power0Demo">
 		{{#  } }}
+		{{#  } }}
 	</script>
 	<script type="text/html" id="power1">
 		{{#   var list = d.permission.split(',');}}
+		{{#  if(d.userId!=localStorage.userId){ }}
 		{{#  if(list[1] != 0){ }}
   			<input type="checkbox" checked="" name="{{list}}" value="{{d.userId}}" lay-skin="switch" lay-text="开启|关闭" lay-filter="power1Demo">
 		{{#  }else{  }}
 			<input type="checkbox" name="{{list}}" value="{{d.userId}}" lay-skin="switch" lay-text="开启|关闭" lay-filter="power1Demo">
 		{{#  } }}
+		{{#  } }}
 	</script>
 	<script type="text/html" id="power2">
 		{{#   var list = d.permission.split(',');}}
+		{{#  if(d.userId!=localStorage.userId){ }}
 		{{#  if(list[2] != 0){ }}
   			<input type="checkbox" checked="" name="{{list}}" value="{{d.userId}}" lay-skin="switch" lay-text="开启|关闭" lay-filter="power2Demo">
 		{{#  }else{  }}
 			<input type="checkbox" name="{{list}}" value="{{d.userId}}" lay-skin="switch" lay-text="开启|关闭" lay-filter="power2Demo">
 		{{#  } }}
+		{{#  } }}
 	</script>
 	<script type="text/html" id="power3">
 		{{#   var list = d.permission.split(',');}}
+		{{#  if(d.userId!=localStorage.userId){ }}
 		{{#  if(list[3] != 0){ }}
   			<input type="checkbox" checked="" name="{{list}}" value="{{d.userId}}" lay-skin="switch" lay-text="开启|关闭" lay-filter="power3Demo">
 		{{#  }else{  }}
 			<input type="checkbox" name="{{list}}" value="{{d.userId}}" lay-skin="switch" lay-text="开启|关闭" lay-filter="power3Demo">
 		{{#  } }}
+		{{#  } }}
 	</script>
 	<script type="text/html" id="power4">
 		{{#   var list = d.permission.split(',');}}
+		{{#  if(d.userId!=localStorage.userId){ }}
 		{{#  if(list[4] != 0){ }}
   			<input type="checkbox" checked="" name="{{list}}" value="{{d.userId}}" lay-skin="switch" lay-text="开启|关闭" lay-filter="power4Demo">
 		{{#  }else{  }}
 			<input type="checkbox" name="{{list}}" value="{{d.userId}}" lay-skin="switch" lay-text="开启|关闭" lay-filter="power4Demo">
+		{{#  } }}
 		{{#  } }}
 	</script>
 	<script type="text/html" id="barDemo">
@@ -62,7 +79,7 @@
 var that = this;
 var power;
 var powered = "";
-var id = null;
+let id = null;
 var power0="0";
 var power1="0";
 var power2="0";
@@ -71,8 +88,6 @@ var power4="0";
 var curr;
 
 $(document).ready(function () {
-	that.power = localStorage.permission;
-	that.id = localStorage.userId;
 	getData();
 });
 
@@ -93,7 +108,7 @@ function getData() {
 			toolbar: '#toolbarDemo', //开启头部工具栏，并为其绑定左侧模板
 			where:{
 				'userId':localStorage.userId,
-				'token':localStorage.token
+				'token':localStorage.token,
 			},
 			cols:[[  //标题
 				{field:'userId',title:'工号',width:300},
@@ -125,141 +140,110 @@ function getData() {
 		
 		form.on('switch(power0Demo)', function(obj){
 			that.powered = this.name; //1,1,1,1,1
-			that.id = this.value; //userId
+			id = this.value; //userId
+			if(id===localStorage.userId)
+			{
+				layer.msg("不可修改自己的权限");
+				if( obj.elem.checked === true){
+					obj.elem.checked = false;
+				}else{
+					obj.elem.checked = true;
+				}
+				return;
+			}
 			if( obj.elem.checked === true){
 				that.powered = replaceStr2(that.powered,0,'1')
 			}else if( obj.elem.checked === false){
 				that.powered = replaceStr2(that.powered,0,'0')
 			}
-			console.log(""+that.powered);
-			console.log(localStorage.token)
-			console.log(localStorage.userId)
-			layer.confirm('确认修改？', function(index){
-				  UpData();
-				  tableObj.reload({
-			    		page: {
-			    		    curr: that.curr //重新从第 本 页开始
-			    		  }
-			    		});
-			      layer.close(index);
-			      //向服务端发送删除指令
-			    });
-			tableObj.reload({
-	    		page: {
-	    		    curr: that.curr //重新从第 本 页开始
-	    		  }
-	    		});
+			UpData();
 		})
 		form.on('switch(power1Demo)', function(obj){
 			that.powered = this.name;
-			that.id = this.value;
+			id = this.value;
 			if( obj.elem.checked === true){
 				that.powered = replaceStr2(that.powered,2,'1')
 			}else if( obj.elem.checked === false){
 				that.powered = replaceStr2(that.powered,2,'0')
 			}
-			layer.confirm('确认修改？', function(index){
-				  UpData();
-				  tableObj.reload({
-			    		page: {
-			    		    curr: that.curr //重新从第 本 页开始
-			    		  }
-			    		});
-			      layer.close(index);
-			      //向服务端发送删除指令
-			    });
-			tableObj.reload({
-	    		page: {
-	    		    curr: that.curr //重新从第 本 页开始
-	    		  }
-	    		});
+			UpData();
 		})
 		form.on('switch(power2Demo)', function(obj){
 			that.powered = this.name;
-			that.id = this.value;
+			id = this.value;
 			if( obj.elem.checked === true){
 				that.powered = replaceStr2(that.powered,4,'1')
 			}else if( obj.elem.checked === false){
 				that.powered = replaceStr2(that.powered,4,'0')
 			}
-			layer.confirm('确认修改？', function(index){
-				  UpData();
-				  tableObj.reload({
-			    		page: {
-			    		    curr: that.curr //重新从第 本 页开始
-			    		  }
-			    		});
-			      layer.close(index);
-			      //向服务端发送删除指令
-			    });
-			tableObj.reload({
-	    		page: {
-	    		    curr: that.curr //重新从第 本 页开始
-	    		  }
-	    		});
+			UpData();
 		  });
 		form.on('switch(power3Demo)', function(obj){
 			that.powered = this.name;
-			that.id = this.value;
+			id = this.value;
 			if( obj.elem.checked === true){
 				that.powered = replaceStr2(that.powered,6,'1')
 			}else if( obj.elem.checked === false){
 				that.powered = replaceStr2(that.powered,6,'0')
 			}
-			layer.confirm('确认修改？', function(index){
-				  UpData();
-				  tableObj.reload({
-			    		page: {
-			    		    curr: that.curr //重新从第 本 页开始
-			    		  }
-			    		});
-			      layer.close(index);
-			      //向服务端发送删除指令
-			    });
-			tableObj.reload({
-	    		page: {
-	    		    curr: that.curr //重新从第 本 页开始
-	    		  }
-	    		});
+			UpData();
 		})
-		
 		form.on('switch(power4Demo)', function(obj){
 			that.powered = this.name;
-			that.id = this.value;
+			id = this.value;
 			if( obj.elem.checked === true){
 				that.powered = replaceStr2(that.powered,8,'1')
 			}else if( obj.elem.checked === false){
 				that.powered = replaceStr2(that.powered,8,'0')
 			}
-			layer.confirm('确认修改？', function(index){
-				  UpData();
-				  tableObj.reload({
-			    		page: {
-			    		    curr: that.curr //重新从第 本 页开始
-			    		  }
-			    		});
-			      layer.close(index);
-			      //向服务端发送删除指令
-			    });
-			tableObj.reload({
-	    		page: {
-	    		    curr: that.curr //重新从第 本 页开始
-	    		  }
-	    		});
+			UpData();
 		})
 	});
 }
 
 function search(){
-	var id = "";//document.getElementById("sea").value;
-	if(id != ""){
-		console.log(id);
-		that.id = id;
-		getData();
-	}else{
-		that.id = "null";
-		getData();
-	}
+	let searchid = document.getElementById("sea").value;
+	layui.use('table',function() {
+		let table = layui.table;
+		table.render({
+			elem: '#order_All',
+			url: getPath(host) + "/PayrollSystem/User/searchPower",
+			type: 'post',
+			toolbar: '#toolbarDemo', //开启头部工具栏，并为其绑定左侧模板
+			where: {
+				'userId': localStorage.userId,
+				'id': "" + searchid,
+				'token': localStorage.token,
+				"power": ""+localStorage.permission
+			},
+			cols: [[  //标题
+				{field: 'userId', title: '工号', width: 300},
+				{field: 'name', title: '真实姓名', width: 200},
+				{field: 'permission', title: '信息列表权限', width: 150, templet: '#power0', unresize: true},
+				{field: 'permission', title: '权限管理权限', width: 150, templet: '#power1', unresize: true},
+				{field: 'permission', title: '部门管理权限', width: 150, templet: '#power2', unresize: true},
+				{field: 'permission', title: '薪资核对权限', width: 150, templet: '#power3', unresize: true},
+				{field: 'permission', title: '奖惩管理权限', width: 150, templet: '#power4', unresize: true}
+			]],
+			page: true,
+			parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
+				// console.log(res)
+				that.curr = this.page.curr;		//设置本页
+				let result;
+				if (this.page.curr) {
+					result = res.data.slice(this.limit * (this.page.curr - 1), this.limit * this.page.curr);
+				} else {
+					result = res.data.slice(0, this.limit);
+				}
+				return {
+					"code": 0, //解析接口状态
+					"msg": res.msg, //解析提示文本
+					"data": res.data, //解析数据列表
+					"count": res.data.length
+				};
+			}
+		});
+	})
 }
 
 function success(result){
@@ -269,19 +253,20 @@ function success(result){
 		layer.msg('修改失败！')
 }
 function UpData(){
-	//Ajax("localhost:8888/PayrollSystem/User/updateUserPower",true,data,success);
+	console.log(id);
+	console.log(that.powered)
 	$.ajax({
 		type:'get',
 		url:'http://localhost:8888/PayrollSystem/User/updateUserPower',
 		dataType:'text',
 		contentType:'application/json;charset=UTF-8',
 		data:{
-			"userId": localStorage.userId,
-			"token": localStorage.token,
+			"userId": ""+localStorage.userId,
+			"id":""+id,
+			"token": ""+localStorage.token,
 			"power": ""+that.powered
 		},
 		success:function (res) {
-			console.log(res)
 			layer.msg('修改成功！');
 		}
 	})

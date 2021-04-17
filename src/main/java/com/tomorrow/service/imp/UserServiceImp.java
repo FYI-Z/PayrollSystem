@@ -79,4 +79,13 @@ public class UserServiceImp implements UserService {
     public User addUser(User user) {
         return null;
     }
+
+    @Override
+    public List<User> findUserPower(String value) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("userid",value);
+        queryWrapper.select("userId","name","permission");
+        List<User> list= userDao.selectList(queryWrapper);
+        return list;
+    }
 }

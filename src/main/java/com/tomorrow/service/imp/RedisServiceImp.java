@@ -9,11 +9,11 @@ import redis.clients.jedis.JedisPoolConfig;
 
 @Service
 public class RedisServiceImp implements RedisService {
-    private static JedisPool jedisPool = null;
-    private static Jedis jedis = null;
 
     @Override
     public Jedis getJedis() {
+        JedisPool jedisPool = null;
+        Jedis jedis = null;
         try{
             if(jedisPool==null){
                 try{
@@ -39,7 +39,7 @@ public class RedisServiceImp implements RedisService {
     public int setString(String key, String value) {
         if(key==null)
             return 0;
-        jedis = getJedis();
+        Jedis jedis = getJedis();
         jedis.set(key,value);
         jedis.expire(key,Constant.REDIS_EXPIRE_TIME);
         jedis.close();
@@ -50,7 +50,7 @@ public class RedisServiceImp implements RedisService {
     public int flushExpire(String key, int redisExpireTime) {
         if(key==null)
             return 0;
-        jedis = getJedis();
+        Jedis jedis = getJedis();
         jedis.expire(key,Constant.REDIS_EXPIRE_TIME);
         jedis.close();
         return 1;
@@ -60,17 +60,22 @@ public class RedisServiceImp implements RedisService {
     public String getString(String key) {
         if(key==null)
             return null;
-        jedis = getJedis();
-        String value = jedis.get(key);
-        jedis.close();
-        return value;
+        try {
+            Jedis jedis = getJedis();
+            String value = jedis.get(key);
+            jedis.close();
+            return value;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
     public int delString(String key) {
         if(key==null)
             return 0;
-        jedis = getJedis();
+        Jedis jedis = getJedis();
         jedis.del(key);
         jedis.close();
         return 1;

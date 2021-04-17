@@ -18,4 +18,6 @@ public interface UserService {
     public User updataUser(User user);
     public User delUser(User user);
     public User addUser(User user);
+
+    List<User> findUserPower(String value);
 }
