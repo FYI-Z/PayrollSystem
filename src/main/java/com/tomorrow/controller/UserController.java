@@ -130,4 +130,15 @@ public class UserController {
         List<User> list = userService.findUserPower(id);
         return ResultUtil.success(list,Constant.RESCODE_SUCCESS,list.size());
     }
+
+    @PostMapping(value = "/findUserById",produces = "application/json;charset=UTF-8")
+    public ReturnResult findUserById(@RequestBody  User user){
+        user = userService.findUserById(user.getUserId());
+        if (user==null){
+            return ResultUtil.error(Constant.RESCODE_INSERTERROR,"查询失败");
+        }
+        else {
+            return  ResultUtil.success(user,Constant.RESCODE_SUCCESS,1);
+        }
+    }
 }
