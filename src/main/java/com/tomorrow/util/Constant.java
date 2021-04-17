@@ -38,9 +38,9 @@ public class Constant {
     /**
      * 权限
      */
-    public static final int PRI_INFOLIET = 1;    //信息列表权限
-    public static final int PRI_PERMISION = 2;   //权限管理
-    public static final int PRI_DEPARTMENT = 3;  //部门管理权限
-    public static final int PRI_SALARY = 4;      //薪资核对权限
-    public static final int PRI_PUNISH = 5;      //奖惩管理权限
+    public static final int PRI_INFOLIET = 0;    //信息列表权限
+    public static final int PRI_PERMISION = 1;   //权限管理
+    public static final int PRI_DEPARTMENT = 2;  //部门管理权限
+    public static final int PRI_SALARY = 3;      //薪资核对权限
+    public static final int PRI_PUNISH = 4;      //奖惩管理权限
 }
