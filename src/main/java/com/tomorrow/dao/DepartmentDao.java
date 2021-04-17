@@ -17,6 +17,9 @@ public interface DepartmentDao {
     @Select("select * from department where is_del=0 limit #{limit}")
     List<Department> findAll(@Param("limit") int limit);
 
+    @Select("select * from department where is_del=0")
+    List<Department> listEchart();
+
     @Update("<script>" +
             "update department set is_del=1 where departmentid=#{departmentid}"+
             "</script>")

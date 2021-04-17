@@ -43,11 +43,14 @@ public class DepartmentController {
     @RequestMapping("/update")
     public List<Department> update(@RequestBody List<Department>departments){
         for(Department depart:departments){
-            System.out.println("删除"+depart.getDepartmentid());
             del(depart);
         }
-//        return departmentService.update(name,Oname,remark);
         return departments;
+    }
+
+    @RequestMapping("/echart")
+    public List<Department> listEchart(){
+        return departmentService.listEchart();
     }
 
 

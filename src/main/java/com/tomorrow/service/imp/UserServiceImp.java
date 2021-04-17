@@ -3,14 +3,22 @@ package com.tomorrow.service.imp;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tomorrow.dao.UserDao;
 import com.tomorrow.entity.User;
+import com.tomorrow.service.RedisService;
+import com.tomorrow.service.TokenService;
 import com.tomorrow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserServiceImp implements UserService {
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private TokenService tokenService;
+    @Autowired
+    private RedisService redisService;
     @Override
     public String login(User user) {
         if(user == null){
@@ -21,7 +29,9 @@ public class UserServiceImp implements UserService {
         queryWrapper.eq("password", user.getPassword());
         user = userDao.selectOne(queryWrapper);
         if(user != null){
-            return "登录成功！";
+            String token = tokenService.geneToken(user); //生成token
+            redisService.setString(user.getUserId(),token); //存进redis
+            return token;
         }
         return null;
     }
@@ -37,6 +47,25 @@ public class UserServiceImp implements UserService {
         user = userDao.selectOne(queryWrapper);
         return user;
     }
+
+    @Override
+    public List<User> findAllUserPower() {
+        User user = null;
+        QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
+        queryWrapper.select("userid","permission");
+        List<User> list= userDao.selectList(queryWrapper);
+        return list;
+    }
+
+    @Override
+    public int updateUserPower(String userId, String power) {
+        User user = userDao.selectById(userId);
+        user.setPermission(power);
+        QueryWrapper<User> updateWrapper = new QueryWrapper<User>();
+        updateWrapper.eq("userid",userId);
+        return userDao.update(user, updateWrapper);
+    }
+
 
     @Override
     public User updataUser(User user) {

@@ -18,4 +18,6 @@ public interface DepartmentService {
     ReturnResult add(Department department);
 
     ReturnResult update(String name,String Oname,String remark);
+
+    List<Department> listEchart();
 }

@@ -87,6 +87,11 @@ public class DepartmentServiceImp implements DepartmentService {
         }
     }
 
+    @Override
+    public List<Department> listEchart() {
+        return departmentDao.listEchart();
+    }
+
     public List<Department> findMsg(String name,String operator) {
         return departmentDao.findMsg(name,operator);
     }
