@@ -13,10 +13,11 @@ public interface DepartmentService {
 
     ReturnResult del(String departmentid);
 
-    List<Department>findMsg(String name,String operator);
+    List<Department> findResult(String name, String operator);
 
-    List<Department>findOrMsg(String name,String operator);
+    ReturnResult add(Department department);
 
-    List<Department> findResult(String name,String operator);
+    ReturnResult update(String name, String Oname, String remark);
 
+    List<Department> listEchart();
 }
