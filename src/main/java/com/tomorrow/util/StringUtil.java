@@ -5,6 +5,7 @@ import cn.hutool.crypto.SecureUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class StringUtil {
 
@@ -31,6 +32,12 @@ public class StringUtil {
             str += list.get(i) + ";";
         }
         return str;
+    }
+
+    public static String getUUID(){
+        UUID uuid = UUID.randomUUID();
+        String id = uuid.toString().replace("-", "");
+        return id;
     }
 
     public static String md5(String pwd){
