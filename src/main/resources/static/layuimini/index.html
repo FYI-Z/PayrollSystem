@@ -148,7 +148,9 @@
             maxTabNum: 20,              // 最大的tab打开数量
         };
         miniAdmin.render(options);
-
+        console.log(localStorage.permission)
+        console.log(localStorage.token)
+        console.log(localStorage.userId)
         // 百度统计代码，只统计指定域名
         miniTongji.render({
             specific: true,
@@ -160,8 +162,9 @@
         });
 
         $('.login-out').on("click", function () {
+            localStorage.clear()
             layer.msg('退出登录成功', function () {
-                window.location = 'page/login-3.html';
+                window.location = 'login.html';
             });
         });
     });

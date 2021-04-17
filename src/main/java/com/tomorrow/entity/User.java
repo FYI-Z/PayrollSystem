@@ -21,4 +21,18 @@ public class User {
     public String userId;
     @TableField("password")
     public String password;
+    @TableField("name")
+    public String name;
+    @TableField("sex")
+    public String sex;
+    @TableField("age")
+    public int age;
+    @TableField("department")
+    public String department;
+    @TableField("position")
+    public String position;
+    @TableField("phone")
+    public String phone;
+    @TableField("permission")
+    public String permission;
 }

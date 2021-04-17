@@ -4,29 +4,25 @@ import com.tomorrow.entity.Attendance;
 import com.tomorrow.service.AttendanceService;
 import com.tomorrow.util.Constant;
 import com.tomorrow.util.ResultUtil;
-import com.tomorrow.vo.AttendanceResultVo;
-import com.tomorrow.vo.LoginResultVo;
 import com.tomorrow.vo.ReturnResult;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.cassandra.CassandraProperties;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+
+
 
 @RestController
 @RequestMapping("/PayrollSystem/Attendance")
 public class AttendanceController {
-    AttendanceResultVo attendanceResultVo = new AttendanceResultVo();
     @Autowired
     private AttendanceService attendanceService;
     @ApiOperation(value = "考勤数据操作接口")
     @ApiImplicitParam()
-    /**
-     *
-     * */
+
     @PostMapping("/showAll")
     public ReturnResult showAll(@RequestParam int current, @RequestParam int size){
         if(size == 0){
@@ -36,7 +32,7 @@ public class AttendanceController {
         return ResultUtil.success(attendanceList,Constant.RESCODE_SUCCESS,attendanceList.size());
     }
 
-    @PostMapping("/find")
+    @PostMapping("/findById")
     public ReturnResult findAttendanceById(@RequestBody Attendance attendance){
        if (attendance.getAttendanceid() == null){
            return ResultUtil.error(Constant.RESCODE_EXCEPTION,"考勤ID为空");
@@ -48,10 +44,25 @@ public class AttendanceController {
        return ResultUtil.success(attendance, Constant.RESCODE_SUCCESS,1);
     }
 
+    @PostMapping("/findAll")
+    public ReturnResult findAll(@RequestParam String key){
+        List<Attendance> attendanceList = attendanceService.findAll(key);
+        if(attendanceList.size() == 0){
+            return ResultUtil.error(Constant.RESCODE_NOEXIST,"查询结果为空");
+        }
+        return ResultUtil.success(attendanceList,Constant.RESCODE_SUCCESS,attendanceList.size());
+    }
+
     @PostMapping("/updata")
     public ReturnResult updataAttendance(@RequestBody Attendance attendance){
-
-        return null;
+        if(attendance.getAttendanceid() == null || attendance.getUserid() == null){
+            return ResultUtil.error(Constant.RESCODE_EXCEPTION,"考勤ID或用户ID为空");
+        }
+        int count = attendanceService.updataAttendance(attendance);
+        if(count == 0){
+            return ResultUtil.error(Constant.RESCODE_MODIFYERROR,"修改失败");
+        }
+        return ResultUtil.success(attendance,Constant.RESCODE_SUCCESS,count);
     }
 
     @PostMapping("/del")
@@ -68,12 +79,14 @@ public class AttendanceController {
 
     @PostMapping("/add")
     public ReturnResult addAttendance(@RequestBody Attendance attendance){
-        if(attendance == null){
-            return ResultUtil.error(Constant.RESCODE_INSERTERROR,"添加失败");
+        if(attendance.getUserid() == null){
+            return ResultUtil.error(Constant.RESCODE_INSERTERROR,"用户ID为空，添加失败");
         }
         attendance = attendanceService.addAttendance(attendance);
-        attendanceResultVo.setAttendance(attendance);
-        return ResultUtil.success(attendanceResultVo, Constant.RESCODE_SUCCESS,1);
+        if(attendance == null){
+            return ResultUtil.error(Constant.RESCODE_INSERTERROR,"无效数据或该用户当天考勤数据已存在");
+        }
+        return ResultUtil.success(attendance, Constant.RESCODE_SUCCESS,1);
     }
 
 }

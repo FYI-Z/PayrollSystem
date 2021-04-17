@@ -21,6 +21,22 @@ public class Constant {
      * */
     public static final int JWT_ERRCODE_EXPIRE = 1010;         //token过期
     public static final int JWT_ERRCODE_FAIL = 1012;         //验证不通过
+    public static final int JWT_RESCODE_SUCCESS = 1013;     //验证通过
     public static final long JWT_EXPIRE_TIME = 60*10;    //10分钟过期时间
     public static final String JWT_SECRET = "ioSjcoa21849sa"; //私钥
+
+    /**
+     * redis
+     */
+    public static final String REDIS_HOST = "106.52.112.29";  //主机ip
+    public static final int REDIS_PORT = 6379;                //端口号
+    public static final int REDIS_EXPIRE_TIME = 60*30;  //设置TTL为30分钟
+    public static final int REDIS_MAX_ACTIVE = 1024;          //最大连接数
+    public static final int REDIS_MAX_IDLE = 100;             //最大空闲连接数
+    public static final long REDIS_MAX_WAIT = 1000*10;        //获取可用连接的最大等待时间
+
+    /**
+     * 权限
+     */
+    public static final int PRI_PERMISION = 3;   //权限管理
 }
