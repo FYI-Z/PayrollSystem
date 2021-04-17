@@ -96,13 +96,13 @@ public class AttendanceServiceImp implements AttendanceService {
         if(attendance.getUserid() == null){
             return null;
         }
-        SimpleDateFormat formatter= new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyyMM");
         Date date = new Date(System.currentTimeMillis());
         attendance.setAttendanceid(formatter.format(date) + attendance.getUserid());
         if(attendanceDao.selectById(attendance.getAttendanceid()) != null){     //该用户当天考勤数据已存在
             return null;
         }
-        formatter= new SimpleDateFormat("yyyy年MM月dd日");
+        formatter= new SimpleDateFormat("yyyy年MM月");
         attendance.setAttendanceTime(formatter.format(date));
         attendanceDao.insert(attendance);
         return attendance;
