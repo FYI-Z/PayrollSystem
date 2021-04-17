@@ -52,7 +52,7 @@ public class UserServiceImp implements UserService {
     public List<User> findAllUserPower() {
         User user = null;
         QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
-        queryWrapper.select("userid","permission");
+        queryWrapper.select("userId","name","permission");
         List<User> list= userDao.selectList(queryWrapper);
         return list;
     }
@@ -61,9 +61,7 @@ public class UserServiceImp implements UserService {
     public int updateUserPower(String userId, String power) {
         User user = userDao.selectById(userId);
         user.setPermission(power);
-        QueryWrapper<User> updateWrapper = new QueryWrapper<User>();
-        updateWrapper.eq("userid",userId);
-        return userDao.update(user, updateWrapper);
+        return userDao.updateById(user);
     }
 
 
@@ -80,5 +78,14 @@ public class UserServiceImp implements UserService {
     @Override
     public User addUser(User user) {
         return null;
+    }
+
+    @Override
+    public List<User> findUserPower(String value) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("userid",value);
+        queryWrapper.select("userId","name","permission");
+        List<User> list= userDao.selectList(queryWrapper);
+        return list;
     }
 }

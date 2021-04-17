@@ -30,7 +30,7 @@
         },
 		{
 		  "title": "权限管理",
-		  "href": "",
+		  "href": "page/powerShow.html",
 		  "icon": "fa fa-file-text",
 		  "target": "_self",
 		  "child": []

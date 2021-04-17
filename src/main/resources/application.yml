@@ -13,7 +13,7 @@ spring:
       max-wait: 100000
     timeout: 1000
 server:
-  port: 8884
+  port: 8888
 
 logging:
   level:

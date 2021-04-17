@@ -15,7 +15,7 @@ public class StringUtil {
      * @return
      */
     public static List<String> strToList(String str){
-        List<String> list = Arrays.asList(str.split(";"));
+        List<String> list = Arrays.asList(str.split(","));
         List<String> newlist = new ArrayList<String>(list);
         return newlist;
     }
@@ -29,7 +29,7 @@ public class StringUtil {
         String str = "";
         int size = list.size();
         for (int i=0;i<size;i++){
-            str += list.get(i) + ";";
+            str += list.get(i) + ",";
         }
         return str;
     }

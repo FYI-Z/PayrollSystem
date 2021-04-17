@@ -17,9 +17,15 @@ import java.util.List;
 public class AttendanceServiceImp implements AttendanceService {
     @Autowired
     private AttendanceDao attendanceDao;
+
+    @Override
+    public List<Attendance> getAll() {
+        List<Attendance> attendances = attendanceDao.selectList(null);
+        return attendances;
+    }
     //分页取出考勤记录
     @Override
-    public List<Attendance> showAll(int current, int size) {
+    public List<Attendance> getCount(int current, int size) {
         QueryWrapper<Attendance> queryWrapper = new QueryWrapper<>();
         List<Attendance> attendanceList = new ArrayList<>();
         IPage<Attendance> page = new Page<>(current,size);
@@ -27,6 +33,7 @@ public class AttendanceServiceImp implements AttendanceService {
         page.getRecords().forEach(attendance -> attendanceList.add(attendance));
         return attendanceList;
     }
+
     //模糊查询
     @Override
     public List<Attendance> findAll(String key) {
@@ -50,6 +57,16 @@ public class AttendanceServiceImp implements AttendanceService {
         attendance = attendanceDao.selectById(attendanceid);
         return attendance;
     }
+    //通过用户ID查考勤记录
+    @Override
+    public List<Attendance> findAttendanceByUserId(String userid) {
+        Attendance attendance = null;
+        QueryWrapper<Attendance> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("userid",userid);//设置等值查询
+        List<Attendance> attendanceList = attendanceDao.selectList(queryWrapper);
+        return attendanceList;
+    }
+
     //修改考勤记录
     @Override
     public int updataAttendance(Attendance attendance) {
@@ -62,16 +79,16 @@ public class AttendanceServiceImp implements AttendanceService {
     }
     //删除考勤记录
     @Override
-    public List<Attendance> delAttendance(List<String> list) {
+    public List<Attendance> delAttendance(String [] list) {
         List<Attendance> attendanceList = new ArrayList<>();
         if(list == null){
             return null;
         }
         for(String string : list){
-            attendanceList.add(attendanceDao.selectById(string));
             attendanceDao.deleteById(string);
         }
-        return attendanceList;
+        List<Attendance> attendances = attendanceDao.selectList(null);
+        return attendances;
     }
     //添加考勤记录
     @Override

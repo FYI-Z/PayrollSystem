@@ -28,7 +28,7 @@ public class Constant {
     /**
      * redis
      */
-    public static final String REDIS_HOST = "106.52.112.29";  //主机ip
+    public static final String REDIS_HOST = "8.136.234.32";  //主机ip
     public static final int REDIS_PORT = 6379;                //端口号
     public static final int REDIS_EXPIRE_TIME = 60*30;  //设置TTL为30分钟
     public static final int REDIS_MAX_ACTIVE = 1024;          //最大连接数
@@ -38,5 +38,9 @@ public class Constant {
     /**
      * 权限
      */
-    public static final int PRI_PERMISION = 3;   //权限管理
+    public static final int PRI_INFOLIET = 0;    //信息列表权限
+    public static final int PRI_PERMISION = 1;   //权限管理
+    public static final int PRI_DEPARTMENT = 2;  //部门管理权限
+    public static final int PRI_SALARY = 3;      //薪资核对权限
+    public static final int PRI_PUNISH = 4;      //奖惩管理权限
 }
