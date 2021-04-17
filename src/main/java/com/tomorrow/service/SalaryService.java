@@ -6,6 +6,7 @@ import com.tomorrow.entity.Salary;
 import java.util.List;
 
 public interface SalaryService {
+    List<Salary> findSalaryByDep(String department);
     List<Salary> findSalaryByOne(String key, String value);
     List<Salary> findAllSalary();
     Salary findSalaryById(String salaryId);

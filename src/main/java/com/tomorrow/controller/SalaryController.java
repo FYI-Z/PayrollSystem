@@ -84,4 +84,18 @@ public class SalaryController {
             return ResultUtil.success("修改成功",Constant.RESCODE_SUCCESS,1);
         }
     }
+
+    @PostMapping(value = "/findByDe")
+    @ResponseBody
+    public ReturnResult findSalaryByDep(@RequestParam String department){
+        if(department == null){
+            return ResultUtil.error(Constant.RESCODE_EXCEPTION,"格式错误");
+        }
+        List<Salary> salaryList = salaryServiceImp.findSalaryByDep(department);
+        if(salaryList.size() == 0){
+            return ResultUtil.error(Constant.RESCODE_NOEXIST,"查询结果为空");
+        }else {
+            return ResultUtil.success(salaryList,Constant.RESCODE_SUCCESS,salaryList.size());
+        }
+    }
 }
