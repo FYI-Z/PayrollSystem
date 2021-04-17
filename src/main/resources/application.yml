@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://106.52.112.29:3306/db_payrollsystem?characterEncoding=UTF-8
+    url: jdbc:mysql://106.52.112.29:3306/db_payrollsystem?characterEncoding=UTF-8&useSSL=false
     username: Admin
     password: Admin123!
   redis:
