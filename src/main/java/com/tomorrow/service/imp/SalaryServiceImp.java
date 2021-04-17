@@ -99,14 +99,26 @@ public class SalaryServiceImp implements SalaryService {
 
     @Override
     public boolean addSalary(Salary salary) {
+        /*生成salaryid*/
+        String id = StringUtil.getUUID();
+        while(salaryDao.selectById(id) != null){
+            id = StringUtil.getUUID();
+        }
 
-        /*查询在userinfo表中是否有该userid*/
-        QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("userid",salary.getUserid());
-        if(userDao.selectOne(queryWrapper) == null){
+        /*查询该userid在userinfo以及salary中是否存在*/
+        try {
+            QueryWrapper queryWrapper = new QueryWrapper();
+            queryWrapper.eq("userid",salary.getUserid());
+            System.out.println(salaryDao.selectOne(queryWrapper).getUserid());
+            if(userDao.selectOne(queryWrapper) == null || salaryDao.selectOne(queryWrapper) != null){
+                return false;
+            }
+        }catch (Exception e){
             return false;
         }
 
+        salary.setSalaryid(id);
+        salary.setSalaryTime(TimeUtil.getTime());
         int flag = salaryDao.insert(salary);
         return flag != 0;
     }
