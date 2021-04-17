@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@CrossOrigin
+@RestController
 @RequestMapping("/PayrollSystem/User")
 public class UserController {
     @Autowired
@@ -41,7 +42,7 @@ public class UserController {
      * @param token
      * @return
      */
-    @PostMapping("/getAllPower")
+    @GetMapping("/getAllPower")
     public ReturnResult getUserAllPower(@RequestParam String userId, @RequestParam String token){
         //验证token
         int res = checkService.checkToken(userId,token);
@@ -51,12 +52,12 @@ public class UserController {
             return ResultUtil.error(Constant.JWT_ERRCODE_FAIL,"验证不通过");
         }
         //验证是否有权操作
-        if(checkService.checkPower(userId,3)==Constant.RESCODE_NOAUTH){
+        if(checkService.checkPower(userId,Constant.PRI_PERMISION)==Constant.RESCODE_NOAUTH){
             return ResultUtil.error(Constant.RESCODE_NOAUTH,"无权操作");
         }
         //查询所有人权限
         List<User> list = userService.findAllUserPower();
-        return ResultUtil.success(list,Constant.RESCODE_SUCCESS,1);
+        return ResultUtil.success(list,Constant.RESCODE_SUCCESS,list.size());
     }
 
     /**
@@ -67,7 +68,7 @@ public class UserController {
      * @param power
      * @return
      */
-    @PostMapping("/updateUserPower")
+    @GetMapping("/updateUserPower")
     public ReturnResult updateUserPower(@RequestParam String userId, @RequestParam String token, @RequestParam String power){
         //验证token
         int res = checkService.checkToken(userId,token);
@@ -82,7 +83,7 @@ public class UserController {
         }
         //修改权限
         if(userService.updateUserPower(userId,power)!=0){
-            return ResultUtil.success(1,Constant.RESCODE_SUCCESS,1);
+            return ResultUtil.success("修改成功",Constant.RESCODE_SUCCESS,1);
         }else{
             return ResultUtil.error(Constant.RESCODE_MODIFYERROR,"修改失败");
         }
