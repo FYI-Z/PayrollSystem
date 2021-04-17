@@ -116,28 +116,13 @@ public class AttendanceController {
 
     @PostMapping("/add")
     public ReturnResult addAttendance(@RequestBody Attendance attendance){
-        if(!isNumeric(attendance.getUserid())){
-            return ResultUtil.error(Constant.RESCODE_INSERTERROR,"用户ID只允许数字，添加失败");
+        if(attendance.getUserid() == null){
+            return ResultUtil.error(Constant.RESCODE_INSERTERROR,"用户ID为空，添加失败");
         }
         attendance = attendanceService.addAttendance(attendance);
         if(attendance == null){
             return ResultUtil.error(Constant.RESCODE_INSERTERROR,"无效数据或该用户当天考勤数据已存在");
         }
         return ResultUtil.success(attendance, Constant.RESCODE_SUCCESS,1);
-    }
-    /*
-     * @Author 李章
-     * @Description 判断是否为数字
-     * @Date 16:32 2021/4/17
-     * @Param [str]
-     * @return boolean
-     **/
-    public static boolean isNumeric(String str) {
-        Pattern pattern = Pattern.compile("-?[0-9]+.?[0-9]+");
-        Matcher isNum = pattern.matcher(str);
-        if (!isNum.matches()) {
-            return false;
-        }
-        return true;
     }
 }
