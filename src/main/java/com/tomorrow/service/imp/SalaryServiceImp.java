@@ -109,7 +109,7 @@ public class SalaryServiceImp implements SalaryService {
         try {
             QueryWrapper queryWrapper = new QueryWrapper();
             queryWrapper.eq("userid",salary.getUserid());
-            System.out.println(salaryDao.selectOne(queryWrapper).getUserid());
+//            System.out.println(salaryDao.selectOne(queryWrapper).getUserid());
             if(userDao.selectOne(queryWrapper) == null || salaryDao.selectOne(queryWrapper) != null){
                 return false;
             }
