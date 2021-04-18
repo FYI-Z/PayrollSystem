@@ -1,8 +1,10 @@
 package com.tomorrow.service.imp;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.tomorrow.dao.*;
-import com.tomorrow.entity.*;
+import com.tomorrow.dao.SalaryDao;
+import com.tomorrow.dao.UserDao;
+import com.tomorrow.entity.Salary;
+import com.tomorrow.entity.User;
 import com.tomorrow.service.SalaryService;
 import com.tomorrow.util.StringUtil;
 import com.tomorrow.util.TimeUtil;
@@ -19,93 +21,6 @@ public class SalaryServiceImp implements SalaryService {
     public SalaryDao salaryDao;
     @Autowired
     public UserDao userDao;
-    @Autowired
-    public RecordDao recordDao;
-    @Autowired
-    public AttendanceDao attendanceDao;
-    @Autowired
-    public StandardDao standardDao;
-
-    @Override
-    public boolean countSalary(String userId , double commission , double bonus) {
-
-        System.out.println(userId);
-        QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("userid",userId);
-
-        Salary salary;
-        Attendance attendance;
-        Standard standard;
-        User user;
-        try {
-            /*获取薪资数据*/
-            salary = salaryDao.selectOne(queryWrapper);
-            /*获取考勤数据*/
-            attendance = attendanceDao.selectOne(queryWrapper);
-            /*获取薪资标准数据*/
-            standard = standardDao.selectList(null).get(0);
-            /*获取用户数据*/
-            user = userDao.selectOne(queryWrapper);
-        }catch (Exception e){
-            System.out.println("userid不存在");
-            return false;
-        }
-        try{
-            /*迟到扣新*/
-            double late = attendance.getLateHours() * standard.getLateStandard();
-            salary.setLate(late);
-            /*旷工扣薪*/
-            double absenteeism = attendance.getAbsenteeismDays() * standard.getAbsenteeismStandard();
-            salary.setAbsenteeism(absenteeism);
-            /*请假扣新*/
-            double vacate = attendance.getLeaveHours() * standard.getAbsenteeismStandard();
-            salary.setVacate(vacate);
-            /*加班薪资*/
-            double overtime = attendance.usualOvertimeHours * standard.getOvertimeStandard()
-                    + attendance.weekendOvertimeHours * standard.getOvertimeStandard() * 2
-                    + attendance.festivalOvertimeHours * standard.getOvertimeStandard() * 3;
-            salary.setOvertime(overtime);
-            /*提成薪资*/
-            if("市场部门".equals(user.department)){
-                if(salary.getCommission() != 0){
-                    salary.setCommission(commission);
-                }
-            }else{
-                salary.setCommission(0);
-            }
-            /*奖金*/
-            if(salary.getBonus() != 0){
-                salary.setBonus(bonus);
-            }
-            /*实发工资*/
-            double actual = salary.getBasicSalary() + salary.getOvertime()
-                    - salary.getLate() - salary.getAbsenteeism() - salary.getVacate();
-            salary.setActual(actual);
-
-            int flag = salaryDao.update(salary,queryWrapper);
-            return flag != 0;
-        }catch (Exception e){
-            System.out.println("userid不存在");
-        }
-        return false;
-
-    }
-
-    @Override
-    public List<Salary> showSalary(String token, String userId) {
-        List<Salary> salaryList = new ArrayList<>();
-        TokenServiceImp tokenServiceImp = new TokenServiceImp();
-        String department = tokenServiceImp.parseToken(token).get("department",String.class);
-        String position = tokenServiceImp.parseToken(token).get("position",String.class);
-        QueryWrapper queryWrapper = new QueryWrapper();
-        if("人力资源部门".equals(department) || "财务部门".equals(department)){
-            return findAllSalary();
-        }else if("部门经理".equals(position)){
-            return findSalaryByDep(department);
-        } else {
-            return findSalaryByOne("userid",userId);
-        }
-    }
 
     @Override
     public List<Salary> findSalaryByDep(String department) {
@@ -114,10 +29,12 @@ public class SalaryServiceImp implements SalaryService {
         List<User> users = userDao.selectList(queryWrapper1);
         List<Salary> salaryList = new ArrayList<>();
 
+        System.out.println(users.size());
         QueryWrapper<Salary> queryWrapper2 = new QueryWrapper<>();
         for(int i = 0 ; i < users.size() ; i++){
             queryWrapper2.eq("userid", users.get(i).getUserId());
             Salary salary = salaryDao.selectOne(queryWrapper2);
+            System.out.println(salary.getUserid());
             salaryList.add(salary);
         }
         return salaryList;
@@ -182,10 +99,6 @@ public class SalaryServiceImp implements SalaryService {
 
     @Override
     public boolean addSalary(Salary salary) {
-        if(salary.getUserid() == null){
-            return false;
-        }
-
         /*生成salaryid*/
         String id = StringUtil.getUUID();
         while(salaryDao.selectById(id) != null){
@@ -196,6 +109,7 @@ public class SalaryServiceImp implements SalaryService {
         try {
             QueryWrapper queryWrapper = new QueryWrapper();
             queryWrapper.eq("userid",salary.getUserid());
+//            System.out.println(salaryDao.selectOne(queryWrapper).getUserid());
             if(userDao.selectOne(queryWrapper) == null || salaryDao.selectOne(queryWrapper) != null){
                 return false;
             }
@@ -208,6 +122,4 @@ public class SalaryServiceImp implements SalaryService {
         int flag = salaryDao.insert(salary);
         return flag != 0;
     }
-
-
 }

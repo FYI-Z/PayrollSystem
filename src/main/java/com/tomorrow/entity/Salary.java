@@ -52,7 +52,7 @@ public class Salary {
     private double late;
 
     @TableField(value = "absenteeism")
-    private double absenteeism;
+    private int absenteeism;
 
     @TableField(value = "actual")
     private double actual;

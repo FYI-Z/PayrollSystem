@@ -40,17 +40,6 @@ public class SalaryController {
         return ResultUtil.success(salary, Constant.RESCODE_SUCCESS,salary.size());
     }
 
-    @PostMapping(value = "/showSalary")
-    @ResponseBody
-    public ReturnResult showSalary(@RequestHeader String token , @RequestParam String userId){
-        List<Salary> salaryList = salaryServiceImp.showSalary(token,userId);
-        if(salaryList == null){
-            return ResultUtil.error(Constant.RESCODE_NOEXIST , "查询结果为空");
-        }else {
-            return ResultUtil.success(salaryList,Constant.RESCODE_SUCCESS,salaryList.size());
-        }
-    }
-
     @PostMapping(value = "/delete")
     @ResponseBody
     public ReturnResult deleteSalaryById(@RequestParam String salaryId){
@@ -62,20 +51,6 @@ public class SalaryController {
             return ResultUtil.error(Constant.RESCODE_NOEXIST,"删除失败");
         }else{
             return ResultUtil.success("删除成功",Constant.RESCODE_SUCCESS,1);
-        }
-    }
-
-    @PostMapping(value = "/count")
-    @ResponseBody
-    public ReturnResult countByUserId(@RequestParam String userId , @RequestParam double commission , @RequestParam double bonus){
-        if(userId == null){
-            return ResultUtil.error(Constant.RESCODE_EXCEPTION , "userid不能为空");
-        }
-        boolean flag = salaryServiceImp.countSalary(userId, commission, bonus);
-        if(flag == false){
-            return ResultUtil.error(Constant.RESCODE_NOEXIST , "薪资统计修改失败");
-        }else {
-            return ResultUtil.success("薪资统计更新成功" , Constant.RESCODE_SUCCESS , 1);
         }
     }
 
