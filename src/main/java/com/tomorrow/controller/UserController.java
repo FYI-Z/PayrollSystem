@@ -74,7 +74,7 @@ public class UserController {
      * @param count
      * @return
      */
-    @GetMapping("/createUser")
+    @RequestMapping("/createUser")
     public ReturnResult createUser(@RequestParam String userId,  @RequestParam String token, @RequestParam int count){
         //验证token
         int res = checkService.checkToken(userId,token);

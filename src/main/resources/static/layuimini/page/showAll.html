@@ -11,11 +11,19 @@
 <script src="../../js/Ajax.js" charset="utf-8"></script>
 <script type="text/html" id="toolbarDemo">
 	<div class="layui-btn-container">
-		<button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add">新增用户</button>
-		<button class="layui-btn layui-btn-sm" lay-event="largeadd">批量新增用户</button>
-		<button class="layui-btn layui-btn-warm layui-btn-sm" lay-event="largeimport">批量导入部门</button>
+		<button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="largeadd">新增用户</button>
+		<button class="layui-btn layui-btn-warm layui-btn-sm" lay-event="largeimport">导入部门</button>
 	</div>
 </script>
+<style type="text/css">
+	/*设置数据表表头*/
+	.layui-table th{
+		text-align: center; /*表头居中*/
+	}
+	.layui-table td{
+		text-align: center; /*表格数据居中*/
+	}
+</style>
 <script type="text/javascript">
 	var that = this;
 	var power;
@@ -42,21 +50,21 @@
 					"token":""+localStorage.token,
 				},
 				cols:[[  //标题
-					{type: 'checkbox', fixed: 'left'},
+					{checkbox: true, fixed: true},
 					{field:'userId',title:'工号',width:140},
 					{field:'name',title:'真实姓名',width:100},
 					{field:'sex',title:'性别',width:100},
 					{field:'age',title:'年龄',width:100},
 					{field:'phone',title:'电话号码',Width:80},
-					{field:'department',title:'所属部门',Width:100},
+					{field:'department',title:'所属部门',Width:80},
 					{field:'status',title:'状态', templet:function(d){
 						if(d.status === 1){
 							return '<span style="color:red"> 禁用 </span>';
 						}else if(d.status === 0){
 							return '<span style="color:green"> 正常 </span>';
 						}
-					},Width:40},
-					{fixed: 'right', title:'操作', toolbar: '#barDemo',width:140}
+					},Width:20},
+					{fixed: 'right', title:'操作', toolbar: '#barDemo',width:150}
 				]],
 				page:true,
 			    parseData: function(res){ //将原始数据解析成 table 组件所规定的数据
@@ -130,33 +138,53 @@
 			table.on('toolbar(dataList)', function(obj){
 				var checkStatus = table.checkStatus(obj.config.id);
 				switch(obj.event) {
-					case 'add':
-						layer.confirm('确认新增？', function(index){
-							changeStatus(data.userId,0)
-							tableObj.reload({
-								page: {
-									curr: that.curr //重新从第 1 页开始
-								}
-							});
-							layer.close(index);
-							//向服务端发送删除指令
-						});
-						layer.msg("新增成功")
-						break;
 					case 'largeadd':
+						layer.open({
+							type:1,
+							title:["批量创建用户",'font-size:14px;'],
+							area:['350px', '200px'], //宽高
+							btn: ['确定添加', '取消添加'],
+							content:$('#edit_count_div'),
+							yes:function(index, layero) {
+								var count = document.getElementById("add_count").value;
+								addUser(count)
+								layer.close(index);
+							},
+							end:function(index, layero){
+								layer.close(index);
+								$("#edit_count")[0].reset();
+								return false;
+							}
+						});
 						break;
 					case 'largeimport':
+						var data = checkStatus.data;
+						console.log(data)
+						layer.open({
+							type: 2,
+							area: ['340px', '330px'],
+							fixed: false, //不固定
+							maxmin: true,
+							content: 'choosedepartment.html',
+							success: function (layero, index) {
+
+							}
+						})
 						break;
 				}
 			})
-		});
+		})
     }
 
-    function addUser(count) {
-		var senddata = JSON.stringify({
+	function addUserSuccess(result) {
+		layer.msg("添加成功")
+	}
 
-		})
-		Ajax("/PayrollSystem/User/createUser",false,)
+	function addUser(count) {
+		var senddata = "?userId="+localStorage.userId+"&token="+localStorage.token
+			+"&count="+count
+		console.log(senddata)
+		Ajax("/PayrollSystem/User/createUser"+senddata,false,senddata,addUserSuccess)
 	}
 
 	function search(){
@@ -245,10 +273,15 @@
 	
 	<div class="demoTable">
  		搜索工号：
- 	<div class="layui-inline">
- 		<input class="layui-input" id="sea" name="keyword" id="demoReload" autocomplete="off">
- 	</div>
- 	<button class="layui-btn" id="sea" onclick="search()">搜索</button>
+		<div class="layui-inline">
+			<input class="layui-input" id="sea" name="keyword" id="demoReload" autocomplete="off">
+		</div>
+ 		<button class="layui-btn" id="sea" onclick="search()">搜索</button>
+		搜索部门：
+		<div class="layui-inline">
+			<input class="layui-input" id="sea2" name="keyword" id="demoReload" autocomplete="off">
+		</div>
+		<button class="layui-btn" id="sea2" onclick="search()">搜索</button>
 	</div>
 	
     <table lay-filter="dataList" class="layui-hide" id="order_All"></table>
@@ -259,5 +292,16 @@
 	</script>
 		
     </div>
+
+	<div id="edit_count_div"style="margin: 8%; display:none;" >
+		<form class="layui-form layui-form-pane" method="post" id="edit_count">
+			<div class="layui-form-item">
+				<label class="layui-form-label">创建数量</label>
+				<div class="layui-input-block">
+					<input type="text" id="add_count" name="add_count" required lay-verify="required" placeholder="请输入创建数量" autocomplete="off" class="layui-input" style="width: 150px;">
+				</div>
+			</div>
+		</form>
+	</div>
 </body>
 </html>
