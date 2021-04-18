@@ -12,8 +12,8 @@
 <script type="text/html" id="toolbarDemo">
 	<div class="layui-btn-container">
 		<button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add">新增用户</button>
-		<button class="layui-btn layui-btn-sm" lay-event="largeadd">批量新增</button>
-		<button class="layui-btn layui-btn-warm layui-btn-sm" lay-event="largeimport">批量导入</button>
+		<button class="layui-btn layui-btn-sm" lay-event="largeadd">批量新增用户</button>
+		<button class="layui-btn layui-btn-warm layui-btn-sm" lay-event="largeimport">批量导入部门</button>
 	</div>
 </script>
 <script type="text/javascript">
@@ -34,11 +34,12 @@
 			var table = layui.table;
 			var tableObj = table.render({
 				elem:'#order_All',
+				id:"userinfo",
 				url:'http://localhost:8888/PayrollSystem/User/getAllUserInfo',
 				toolbar: '#toolbarDemo', //开启头部工具栏，并为其绑定左侧模板
 				where:{
 					"userId":that.operator,
-					"token":""+localStorage.token
+					"token":""+localStorage.token,
 				},
 				cols:[[  //标题
 					{type: 'checkbox', fixed: 'left'},
@@ -55,7 +56,7 @@
 							return '<span style="color:green"> 正常 </span>';
 						}
 					},Width:40},
-					{fixed: 'right', title:'操作', toolbar: '#barDemo',width:200}
+					{fixed: 'right', title:'操作', toolbar: '#barDemo',width:140}
 				]],
 				page:true,
 			    parseData: function(res){ //将原始数据解析成 table 组件所规定的数据
@@ -77,21 +78,23 @@
 			
 			table.on('tool(dataList)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
 				  var data = obj.data; //获得当前行数据
+					console.log(data)
 				  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 				  var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
 				  if(layEvent === 'edit'){ //编辑
 				    //do somehing
 				    layer.open({
 				  	type: 2,
-				  	area: ['700px', '450px'],
+				  	area: ['500px', '450px'],
 				  	fixed: false, //不固定
 				  	maxmin: true,
 				  	content: 'edit.html?department=' + data.department + "&sex=" + data.sex,
 			        //编辑数据回显
 			        success: function (layero, index) {
 			                    //编辑页面回显数据====关键部分
+								console.log(data)
 			                    var body = layer.getChildFrame('body', index);
-			                    body.contents().find('#userId').val(data.userId);
+								body.contents().find('#id').val(data.userId);
 			                    body.contents().find('#name').val(data.name);
 			                    body.contents().find("#sex").val(data.sex);
 			                    body.contents().find("#age").val(data.age);
@@ -99,22 +102,9 @@
 			                    body.contents().find("#phone").val(data.phone);
 			       		 }
 					})  
-				  } else if(layEvent === 'del'){ //删除
-				    layer.confirm('确认删除？', function(index){
-				      obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-				      deleteInfo(obj.data.id);
-				      tableObj.reload({
-				    		page: {
-				    		    curr: that.curr //重新从第 本 页开始
-				    		  }
-				    		});
-				      getData();
-				      layer.close(index);
-				      //向服务端发送删除指令
-				    });
-				  }else if(layEvent === 'change' && obj.data.status === "0"){
+				  } else if(layEvent === 'change' && data.status === 0){
 					  layer.confirm('确认禁用？', function(index){
-						  changeStatus(obj.data.id,1)
+						  changeStatus(data.userId,1)
 					      tableObj.reload({
 					    		page: {
 					    		    curr: that.curr //重新从第 1 页开始
@@ -123,9 +113,9 @@
 					      layer.close(index);
 					      //向服务端发送删除指令
 					    });
-				  }else if(layEvent === 'change' && obj.data.status === "1"){
+				  }else if(layEvent === 'change' && data.status === 1){
 					  layer.confirm('确认启用？', function(index){
-						  changeStatus(obj.data.id,0)
+						  changeStatus(data.userId,0)
 					      tableObj.reload({
 					    		page: {
 					    		    curr: that.curr //重新从第 1 页开始
@@ -136,72 +126,117 @@
 					    });
 				  }
 				});
-			
+
+			table.on('toolbar(dataList)', function(obj){
+				var checkStatus = table.checkStatus(obj.config.id);
+				switch(obj.event) {
+					case 'add':
+						layer.confirm('确认新增？', function(index){
+							changeStatus(data.userId,0)
+							tableObj.reload({
+								page: {
+									curr: that.curr //重新从第 1 页开始
+								}
+							});
+							layer.close(index);
+							//向服务端发送删除指令
+						});
+						layer.msg("新增成功")
+						break;
+					case 'largeadd':
+						break;
+					case 'largeimport':
+						break;
+				}
+			})
 		});
     }
-		var getCookie = function (name) {
-			  var arr;
-			  var reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-			  if (arr === document.cookie.match(reg)){
-			    return arr[2];
-			  }
-			  else
-			    return null;
-		};
-		
-		function search(){
-			let id = document.getElementById("sea").value;
+
+    function addUser(count) {
+		var senddata = JSON.stringify({
+
+		})
+		Ajax("/PayrollSystem/User/createUser",false,)
+	}
+
+	function search(){
+		let id = document.getElementById("sea").value;
+		if(id === ""){
 			console.log(id);
-			if(id !== ""){
-				console.log(id);
-				that.id = id;
-				getData();
-			}else{
-				that.id = "null";
-				getData();
+			getData();
+		}else {
+			layui.use('table', function () {
+				var table = layui.table;
+				var tableObj = table.render({
+					elem: '#order_All',
+					url: 'http://localhost:8888/PayrollSystem/User/searchPower',
+					toolbar: '#toolbarDemo', //开启头部工具栏，并为其绑定左侧模板
+					where: {
+						"id": "" + id,
+						"userId": "" + localStorage.userId,
+						"token": localStorage.token,
+						"power": "" + localStorage.permission
+					},
+					cols: [[  //标题
+						{type: 'checkbox', fixed: 'left'},
+						{field: 'userId', title: '工号', width: 140},
+						{field: 'name', title: '真实姓名', width: 100},
+						{field: 'sex', title: '性别', width: 100},
+						{field: 'age', title: '年龄', width: 100},
+						{field: 'phone', title: '电话号码', Width: 80},
+						{field: 'department', title: '所属部门', Width: 100},
+						{
+							field: 'status', title: '状态', templet: function (d) {
+								if (d.status === 1) {
+									return '<span style="color:red"> 禁用 </span>';
+								} else if (d.status === 0) {
+									return '<span style="color:green"> 正常 </span>';
+								}
+							}, Width: 40
+						},
+						{fixed: 'right', title: '操作', toolbar: '#barDemo', width: 200}
+					]],
+					page: true,
+					parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
+						that.curr = this.page.curr;
+						if (this.page.curr) {
+							result = res.data.slice(this.limit * (this.page.curr - 1), this.limit * this.page.curr);
+						} else {
+							result = res.data.slice(0, this.limit);
+						}
+						return {
+							"code": 0, //解析接口状态
+							"msg": res.msg, //解析提示文本
+							"data": result, //解析数据列表
+							"count": res.data.length
+						};
+					}
+				});
+
+			})
+		}
+	}
+
+	function changeStatus(data,statused){
+		$.ajax({
+			type : "get",
+			async : false,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+			url : "http://localhost:8888/PayrollSystem/User/updateUserStatus",    //请求发送到UserServlet处
+			data : {
+				"id":""+data,  //操作的用户
+				"userId":""+localStorage.userId, //当前用户
+				"status":""+statused,  //状态
+				"token":""+localStorage.token //token
+			},
+			dataType : "json",        //返回数据形式为json
+			success : function(result) {
+				layer.msg("更新成功")
+			},
+			error : function(errorMsg) {
+
 			}
-		}
-		
-		function changeStatus(data,statused){
-			$.ajax({
-				type : "post",
-			    async : false,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-			    url : "http://localhost:8888/payRollSystem/User/updateUserStatus",    //请求发送到UserServlet处
-			    data : {
-			    	"id":data,  //操作的用户
-			    	"userId":""+localStorage.userId, //当前用户
-			    	"status":""+statused,  //状态
-			    	"token":""+localStorage.token //token
-			    },
-			    dataType : "json",        //返回数据形式为json
-			    success : function(result) {
-			    	layer.msg("更新成功")
-			    },
-			    error : function(errorMsg) {
-			        
-			    }
-			})
-		}
-		
-		function deleteInfo(id){
-			$.ajax({
-				type : "post",
-			    async : false,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-			    url : "http://localhost:8888/payRollSystem/User/delUser",    //请求发送到UserServlet处
-			    data : {
-			    	"id":id,
-			    	"userId": ""+localStorage.userId,
-					"token":""+localStorage.token
-			    },
-			    dataType : "json",        //返回数据形式为json
-			    success : function(result) {
-			    	console.log(result);
-			    },
-			    error : function(errorMsg) {
-			        
-			    }
-			})
-		}
+		})
+	}
 </script>
 
 </head>
@@ -209,7 +244,7 @@
 	<div style="padding: 15px;">
 	
 	<div class="demoTable">
- 		搜索姓名：
+ 		搜索工号：
  	<div class="layui-inline">
  		<input class="layui-input" id="sea" name="keyword" id="demoReload" autocomplete="off">
  	</div>
@@ -221,7 +256,6 @@
 	<script type="text/html" id="barDemo">
 		<a id="status" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="change">状态变更</a>
   		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-  		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 	</script>
 		
     </div>
