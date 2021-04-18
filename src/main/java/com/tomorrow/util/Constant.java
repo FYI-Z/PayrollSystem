@@ -43,4 +43,10 @@ public class Constant {
     public static final int PRI_DEPARTMENT = 2;  //部门管理权限
     public static final int PRI_SALARY = 3;      //薪资核对权限
     public static final int PRI_PUNISH = 4;      //奖惩管理权限
+
+    /**
+     * 用户
+     */
+    public static final int YEAR = 2021;   //当前年份
+
 }

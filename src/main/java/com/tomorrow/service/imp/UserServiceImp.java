@@ -6,10 +6,12 @@ import com.tomorrow.entity.User;
 import com.tomorrow.service.RedisService;
 import com.tomorrow.service.TokenService;
 import com.tomorrow.service.UserService;
+import com.tomorrow.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -49,6 +51,35 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public List<User> findAllUserInfo() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
+        queryWrapper.select("userId","name","age","sex","phone","department","position","permission","status");
+        List<User> list= userDao.selectList(queryWrapper);
+        return list;
+    }
+
+
+    @Override
+    public int addUser() {
+        User user = null;
+        String userid = "" + Constant.YEAR + (new Random().nextInt(10000)+1000);
+        user = userDao.selectById(userid);
+        while(user!=null){
+            userid = "" + Constant.YEAR + (new Random().nextInt(10000)+1000);
+            user = userDao.selectById(userid);
+        }
+        try{
+            user = new User();
+            user.setUserId(""+userid).setPassword("123456").setPermission("0,0,0,0,0");
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+        userDao.insert(user);
+        return 1;
+    }
+
+    @Override
     public List<User> findAllUserPower() {
         User user = null;
         QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
@@ -64,7 +95,25 @@ public class UserServiceImp implements UserService {
         return userDao.updateById(user);
     }
 
+    @Override
+    public int updateUserStatus(String id,int status) {
+        User user = userDao.selectById(id);
+        user.setStatus(status);
+        return userDao.updateById(user);
+    }
 
+
+    @Override
+    public int updateUserDepart(String id,String department) {
+        User user = userDao.selectById(id);
+        user.setDepartment(department);
+        return userDao.updateById(user);
+    }
+
+    @Override
+    public int delUser(String id) {
+        return userDao.deleteById(id);
+    }
     @Override
     public User updataUser(User user) {
         return null;

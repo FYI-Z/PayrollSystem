@@ -35,4 +35,6 @@ public class User {
     public String phone;
     @TableField("permission")
     public String permission;
+    @TableField("status")
+    public int status;
 }
