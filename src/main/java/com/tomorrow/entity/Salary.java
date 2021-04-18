@@ -19,7 +19,7 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @Accessors(chain = true)
-@TableName(value = "Salary")
+@TableName(value = "salary")
 public class Salary {
 
     @TableId(value = "salaryid")
