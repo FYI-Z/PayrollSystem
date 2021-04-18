@@ -15,12 +15,12 @@ public interface UserService {
     public User findUserById(String userId);
     public List<User> findAllUserInfo();
     public List<User> findAllUserPower();
-    public int addUser();
+    public int addUser(int count);
     public int updateUserPower(String userId,String power);
     public int updateUserStatus(String id, int status);
     public int updateUserDepart(String id,String department);
     public int delUser(String id);
-    public User updataUser(User user);
+    public int updateUser(User user);
     public User delUser(User user);
     public User addUser(User user);
 

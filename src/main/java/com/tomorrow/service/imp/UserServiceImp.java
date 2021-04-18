@@ -2,8 +2,10 @@ package com.tomorrow.service.imp;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tomorrow.dao.UserDao;
+import com.tomorrow.entity.Salary;
 import com.tomorrow.entity.User;
 import com.tomorrow.service.RedisService;
+import com.tomorrow.service.SalaryService;
 import com.tomorrow.service.TokenService;
 import com.tomorrow.service.UserService;
 import com.tomorrow.util.Constant;
@@ -21,6 +23,8 @@ public class UserServiceImp implements UserService {
     private TokenService tokenService;
     @Autowired
     private RedisService redisService;
+    @Autowired
+    private SalaryService salaryService;
     @Override
     public String login(User user) {
         if(user == null){
@@ -60,23 +64,30 @@ public class UserServiceImp implements UserService {
 
 
     @Override
-    public int addUser() {
-        User user = null;
-        String userid = "" + Constant.YEAR + (new Random().nextInt(10000)+1000);
-        user = userDao.selectById(userid);
-        while(user!=null){
-            userid = "" + Constant.YEAR + (new Random().nextInt(10000)+1000);
+    public int addUser(int count) {
+        int t = count;
+        while(count!=0){
+            count--;
+            User user = null;
+            String userid = "" + Constant.YEAR + (new Random().nextInt(10000)+1000);
             user = userDao.selectById(userid);
+            while(user!=null){
+                userid = "" + Constant.YEAR + (new Random().nextInt(10000)+1000);
+                user = userDao.selectById(userid);
+            }
+            try{
+                user = new User();
+                user.setUserId(""+userid).setPassword("123456").setPermission("0,0,0,0,0");
+            }catch (Exception e){
+                e.printStackTrace();
+                return 0;
+            }
+            userDao.insert(user);
+            Salary salary = new Salary();
+            salary.setUserid(user.getUserId());
+            salaryService.addSalary(salary);
         }
-        try{
-            user = new User();
-            user.setUserId(""+userid).setPassword("123456").setPermission("0,0,0,0,0");
-        }catch (Exception e){
-            e.printStackTrace();
-            return 0;
-        }
-        userDao.insert(user);
-        return 1;
+        return t;
     }
 
     @Override
@@ -115,8 +126,8 @@ public class UserServiceImp implements UserService {
         return userDao.deleteById(id);
     }
     @Override
-    public User updataUser(User user) {
-        return null;
+    public int updateUser(User user) {
+        return userDao.updateById(user);
     }
 
     @Override

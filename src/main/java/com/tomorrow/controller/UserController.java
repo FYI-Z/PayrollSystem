@@ -71,10 +71,11 @@ public class UserController {
      * 创建用户
      * @param userId
      * @param token
+     * @param count
      * @return
      */
     @GetMapping("/createUser")
-    public ReturnResult createUser(@RequestParam String userId,  @RequestParam String token){
+    public ReturnResult createUser(@RequestParam String userId,  @RequestParam String token, @RequestParam int count){
         //验证token
         int res = checkService.checkToken(userId,token);
         if(Constant.JWT_ERRCODE_EXPIRE==res){
@@ -87,11 +88,20 @@ public class UserController {
             return ResultUtil.error(Constant.RESCODE_NOAUTH,"无权操作");
         }
         //创建用户
-        if (userService.addUser()==0){
-            return ResultUtil.error(Constant.RESCODE_INSERTERROR,"创建用户失败");
+        if(count==1){
+            if (userService.addUser(count)==0){
+                return ResultUtil.error(Constant.RESCODE_INSERTERROR,"创建用户失败");
+            }else{
+                return ResultUtil.success("创建用户成功", Constant.RESCODE_SUCCESS,1);
+            }
         }else{
-            return ResultUtil.success("创建用户成功", Constant.RESCODE_SUCCESS,1);
+            if (userService.addUser(count)==0){
+                return ResultUtil.error(Constant.RESCODE_INSERTERROR,"批量创建用户失败");
+            }else{
+                return ResultUtil.success("批量创建用户成功", Constant.RESCODE_SUCCESS,1);
+            }
         }
+
     }
 
     /**
@@ -275,6 +285,59 @@ public class UserController {
         //搜索
         List<User> list = userService.findUserPower(id);
         return ResultUtil.success(list,Constant.RESCODE_SUCCESS,list.size());
+    }
+
+    /**
+     * 庞海
+     * 更新用户信息
+     * @param userId
+     * @param name
+     * @param sex
+     * @param age
+     * @param phone
+     * @param department
+     * @param token
+     * @return
+     */
+    @RequestMapping("/updateUser")
+    public ReturnResult updateUser(@RequestParam String userId,@RequestParam String id,@RequestParam String name,@RequestParam String sex,@RequestParam String age,@RequestParam String phone,@RequestParam String department,@RequestParam String token){
+        //验证token
+        int res;
+        try{
+            res = checkService.checkToken(userId,token);
+        }catch (Exception e){
+            e.printStackTrace();
+            res = Constant.JWT_ERRCODE_FAIL;
+        }
+
+        if(Constant.JWT_ERRCODE_EXPIRE==res){
+            return ResultUtil.error(Constant.JWT_ERRCODE_EXPIRE,"token已过期");
+        }else if(Constant.JWT_ERRCODE_FAIL==res){
+            return ResultUtil.error(Constant.JWT_ERRCODE_FAIL,"验证不通过");
+        }
+        //验证是否有权操作
+        if(checkService.checkPower(userId,Constant.PRI_PERMISION)==Constant.RESCODE_NOAUTH){
+            return ResultUtil.error(Constant.RESCODE_NOAUTH,"无权操作");
+        }
+        User user = new User();
+        int intAge;
+        if(age=="")
+            intAge = 0;
+        else{
+            try{
+                intAge = Integer.parseInt(age);
+            }catch (Exception e){
+                e.printStackTrace();
+                intAge = 0;
+            }
+        }
+        user.setUserId(id).setName(name).setSex(sex).setAge(intAge).setPhone(phone).setDepartment(department);
+        //更新用户信息
+        if(userService.updateUser(user)!=0){
+            return ResultUtil.success("更新信息成功",Constant.RESCODE_SUCCESS,1);
+        }else{
+            return ResultUtil.error(Constant.RESCODE_MODIFYERROR,"更新信息失败");
+        }
     }
 
     @PostMapping(value = "/findUserById",produces = "application/json;charset=UTF-8")
