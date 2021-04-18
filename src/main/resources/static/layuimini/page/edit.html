@@ -101,10 +101,11 @@ layui.use('form', function(){
             success : function(result) {
                 // console.log(result)
                 for (var i = 0; i < result.length; i++) {
-                    sel.options.add(new Option(result[i].name));
+                    sel.options.add(new Option(result[i].name, result[i].department));
                     sel[i].selected = false;
                     if (result[i].name === that.department) {
                         sel[i].selected = true;
+                        break;
                     }
                 }
             }
