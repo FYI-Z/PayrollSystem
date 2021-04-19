@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css">
+    <script src="../lib/layui-v2.5.5/layui.js"></script>
+    <script src="../lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="../lib/layui-v2.5.5/lay/modules/table.js"></script>
+    <script type="text/javascript" src="../js/lay-module/echarts/echarts.js"></script>
+    <script src="../js/lay-module/step-lay/steps.js"></script>
+    <link rel="stylesheet" href="../js/lay-module/step-lay/step.css">
+</head>
+<body>
+<div id="main" style="width: 600px;height:400px;"></div>
+<div class="layui-form-item">
+    <label class="layui-form-label">实发薪资</label>
+    <div class="layui-input-block">
+        <input id="actual" type="text" name="title" lay-verify="title" autocomplete="off" readonly="readonly" class="layui-input">
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label">提薪金额</label>
+    <div class="layui-input-block">
+        <input id="commission" type="text" name="title" lay-verify="title" autocomplete="off" readonly="readonly" class="layui-input">
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label">提薪状态</label>
+    <div class="layui-input-block" >
+        <input id="applyStatus" type="text" name="title" lay-verify="title" autocomplete="off" readonly="readonly" class="layui-input">
+    </div>
+</div>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    $.ajax({
+        type : "get",
+        async : false,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url : "http://localhost:8888/PayRollSystem/Salary/findSalaryByOne",
+        data : {
+            'key':'userId',
+            'value':'20213630'
+        },
+        headers:{
+            "token":'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIxMTMwMiIsInVzZXJJZCI6IjIwMjExMzAyIiwibmFtZSI6IiIsInNleCI6IueUtyIsImFnZSI6IueUtyIsImRlcGFydG1lbnQiOiLkurrlipvotYTmupDpg6giLCJwaG9uZSI6IiIsInBlcm1pc3Npb24iOiIwLDAsMCwwLDAiLCJpYXQiOjE2MTg4NTA3NzR9.1qC89YMFda_F2S8S-LDT3qpqlX2qTS3Tjsq9kYsFFck'
+        },
+        dataType : "json",        //返回数据形式为json
+        success : function(result) {
+            $('#actual').innerHTML = "实发薪资：" + result.data[0].actual
+            // 绘制图表
+            myChart.setOption({
+                series : [
+                    {
+                        name: '个人薪资组成',
+                        type: 'pie',
+                        //直径占整个div高度的多少
+                        radius: '55%',
+                        data:[
+                            {value:result.data[0].basicSalary, name:'基础薪资'},
+                            {value:result.data[0].commission, name:'提成薪资'},
+                            {value:result.data[0].overtime, name:'加班薪资'},
+                            {value:result.data[0].bonus, name:'奖金'},
+                            {value:result.data[0].vacate, name:'请假扣薪'},
+                            {value:result.data[0].late, name:'迟到扣薪'},
+                            {value:result.data[0].absenteeism, name:'旷工扣薪'},
+                        ]
+                    }
+                ],
+                itemStyle: {
+                    normal: {
+                        // 设置扇形的颜色，不知道为什么没效果
+                        //color: '#c23531',
+                        // 阴影的大小
+                        shadowBlur: 200,
+                        // 阴影水平方向上的偏移
+                        shadowOffsetX: 0,
+                        // 阴影垂直方向上的偏移
+                        shadowOffsetY: 0,
+                        // 阴影颜色
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                },
+            })
+            $('#actual').val(result.data[0].actual);
+            $('#commission').val(result.data[0].commission);
+            $('#applyStatus').val(result.data[0].applyStatus );
+        },
+        error : function(errorMsg) {
+
+        }
+    })
+</script>
+</body>
+</html>

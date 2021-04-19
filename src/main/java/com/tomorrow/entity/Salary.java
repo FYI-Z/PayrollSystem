@@ -61,7 +61,7 @@ public class Salary {
     private String salaryStatus;
 
     @TableField(value = "applySalary")
-    private String applySalary;
+    private double applySalary;
 
     @TableField(value = "applicant")
     private String applicant;

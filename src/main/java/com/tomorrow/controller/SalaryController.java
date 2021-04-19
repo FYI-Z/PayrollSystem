@@ -33,21 +33,45 @@ public class SalaryController {
         return ResultUtil.success(salary, Constant.RESCODE_SUCCESS,1);
     }
 
-    @PostMapping(value = "/findSalaryByOne")
+    @PostMapping(value = "/showApplication")
     @ResponseBody
-    public ReturnResult findAllSalary(@RequestParam String key , @RequestParam String value){
+    public ReturnResult showApplication(@RequestHeader String token){
+        if(token == null){
+            return ResultUtil.error(Constant.RESCODE_EXCEPTION,"无权限");
+        }
+        List<Salary> salaryList = salaryServiceImp.showApplication(token);
+        if(salaryList == null){
+            return ResultUtil.error(Constant.RESCODE_NOEXIST,"结果为空");
+        }
+        return ResultUtil.success(salaryList,Constant.RESCODE_SUCCESS,salaryList.size());
+    }
+
+    @GetMapping(value = "/findSalaryByOne")
+    @ResponseBody
+    public ReturnResult findAllSalary(@RequestParam(value = "key") String key , @RequestParam(value = "value") String value){
         List<Salary> salary = salaryServiceImp.findSalaryByOne(key , value);
         return ResultUtil.success(salary, Constant.RESCODE_SUCCESS,salary.size());
     }
 
     @PostMapping(value = "/showSalary")
     @ResponseBody
-    public ReturnResult showSalary(@RequestHeader String token , @RequestParam String userId){
+    public ReturnResult showSalary(@RequestParam String token , @RequestParam String userId){
         List<Salary> salaryList = salaryServiceImp.showSalary(token,userId);
         if(salaryList == null){
             return ResultUtil.error(Constant.RESCODE_NOEXIST , "查询结果为空");
         }else {
             return ResultUtil.success(salaryList,Constant.RESCODE_SUCCESS,salaryList.size());
+        }
+    }
+
+    @GetMapping(value = "/updateSalaryStatus")
+    @ResponseBody
+    public ReturnResult updateByOne(@RequestParam String salaryStatus , @RequestParam String userid){
+        boolean flag = salaryServiceImp.updateSalaryStatus(salaryStatus,userid);
+        if(flag == false){
+            return ResultUtil.error(Constant.RESCODE_NOEXIST,"更新失败");
+        }else {
+            return ResultUtil.success("更新成功",Constant.RESCODE_SUCCESS,1);
         }
     }
 
@@ -95,14 +119,14 @@ public class SalaryController {
 
     @PostMapping(value = "/update")
     @ResponseBody
-    public ReturnResult updateSalary(@RequestBody Salary salary){
+    public ReturnResult updateSalary(@RequestBody Salary salary , @RequestHeader String token){
         if(salary == null){
             return ResultUtil.error(Constant.RESCODE_EXCEPTION,"格式错误");
         }
-        if(salary.getSalaryid() == null){
+        if(salary.getUserid() == null){
             return ResultUtil.error(Constant.RESCODE_EXCEPTION,"id值不能为空");
         }
-        boolean flag = salaryServiceImp.updateSalary(salary);
+        boolean flag = salaryServiceImp.updateSalary(salary , token);
         if(flag == false){
             return ResultUtil.error(Constant.RESCODE_EXCEPTION,"修改失败");
         }else {

@@ -27,11 +27,11 @@ public class StandardController {
 
     @PostMapping(value = "/update")
     @ResponseBody
-    public ReturnResult update(@RequestBody Standard standard){
+    public ReturnResult update(@RequestBody Standard standard , @RequestHeader(value = "token") String token){
         if(standard == null){
             return ResultUtil.error(Constant.RESCODE_EXCEPTION,"信息格式错误");
         }
-        boolean flag = standardServiceImp.updateStandard(standard);
+        boolean flag = standardServiceImp.updateStandard(standard , token);
         if(flag == false){
             return ResultUtil.error(Constant.RESCODE_NOEXIST , "更新结果为空");
         }else {

@@ -1,10 +1,15 @@
 package com.tomorrow.service;
 
 import com.tomorrow.entity.Salary;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 public interface SalaryService {
+
+    boolean updateSalaryStatus(String salaryStatus , String userid);
+
+    List<Salary> showApplication(String token);
 
     boolean countSalary(String userId, double commission , double bonus);
 
@@ -18,7 +23,7 @@ public interface SalaryService {
 
     Salary findSalaryById(String salaryId);
 
-    boolean updateSalary(Salary salary);
+    boolean updateSalary(Salary salary , String token);
 
     boolean deleteSalary(String salaryId);
 
