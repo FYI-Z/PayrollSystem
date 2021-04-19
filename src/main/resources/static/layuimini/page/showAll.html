@@ -55,9 +55,9 @@
 
 	function searchByDepart() {
 		var dep =  document.getElementById('sel2').value;
-		if(dep===""){
-			getData();
-		}else{
+		// if(dep===""){
+		// 	getData();
+		// }else{
 			layui.use('table', function () {
 				var table = layui.table;
 				var tableObj = table.render({
@@ -107,7 +107,7 @@
 				});
 
 			})
-		}
+		// }
 	}
 
 	function getData() {

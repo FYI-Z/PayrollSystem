@@ -74,7 +74,7 @@ public class UserController {
      * @param count
      * @return
      */
-    @GetMapping("/createUser")
+    @RequestMapping("/createUser")
     public ReturnResult createUser(@RequestParam String userId,  @RequestParam String token, @RequestParam int count){
         //验证token
         int res = checkService.checkToken(userId,token);
@@ -287,6 +287,14 @@ public class UserController {
         return ResultUtil.success(list,Constant.RESCODE_SUCCESS,list.size());
     }
 
+    /**
+     * 通过部门名搜索用户
+     * @param userId
+     * @param depart
+     * @param token
+     * @param power
+     * @return
+     */
     @RequestMapping("/searchDepart")
     public ReturnResult searchUserByDepart(@RequestParam String userId, @RequestParam String depart,  @RequestParam String token, @RequestParam String power){
         //验证token
