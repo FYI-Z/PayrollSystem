@@ -1,7 +1,9 @@
 package com.tomorrow.service.imp;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.tomorrow.dao.AttendanceDao;
 import com.tomorrow.dao.UserDao;
+import com.tomorrow.entity.Attendance;
 import com.tomorrow.entity.Record;
 import com.tomorrow.entity.Salary;
 import com.tomorrow.entity.User;
@@ -25,6 +27,8 @@ public class UserServiceImp implements UserService {
     private SalaryService salaryService;
     @Autowired
     private RecordService recordService;
+    @Autowired
+    private AttendanceService attendanceService;
     @Override
     public String login(User user) {
         if(user == null){
@@ -94,7 +98,9 @@ public class UserServiceImp implements UserService {
             recordService.addRecord(record);
 
             //新增考勤
-
+            Attendance attendance = new Attendance();
+            attendance.setUserid(user.getUserId());
+            attendanceService.addAttendance(attendance);
         }
         return t;
     }
