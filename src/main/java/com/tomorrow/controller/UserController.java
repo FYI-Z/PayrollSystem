@@ -1,5 +1,6 @@
 package com.tomorrow.controller;
 
+import com.tomorrow.entity.JsonResult;
 import com.tomorrow.entity.User;
 import com.tomorrow.service.CheckService;
 import com.tomorrow.service.UserService;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -318,6 +320,23 @@ public class UserController {
         //搜索
         List<User> list = userService.findUserByDepart(depart);
         return ResultUtil.success(list,Constant.RESCODE_SUCCESS,list.size());
+    }
+
+    /**
+     * 庞海
+     * 批量导入用户
+     * @param list
+     * @return
+     */
+    @RequestMapping("/updateUserDepart")
+    public ReturnResult updateUserDepartment(@RequestBody List<JsonResult> list){
+        int res = 0;
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getId()!=null){
+                res+=userService.updateUserDepart(list.get(i).getId(),list.get(i).getDepartment());
+            }
+        }
+        return ResultUtil.success("更新部门成功",Constant.RESCODE_SUCCESS,res);
     }
 
     /**

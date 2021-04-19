@@ -30,7 +30,7 @@
 	var operator;
 	var id = "null";
 	var curr;
-	
+
 	$(document).ready(function () {
 		that.power = localStorage.permission;
 		that.operator = localStorage.userId;
@@ -233,17 +233,19 @@
 						break;
 					case 'largeimport':
 						var data = checkStatus.data;
-						console.log(data)
-						layer.open({
-							type: 2,
-							area: ['340px', '330px'],
-							fixed: false, //不固定
-							maxmin: true,
-							content: 'choosedepartment.html',
-							success: function (layero, index) {
-
-							}
-						})
+						if(data.length!==0){
+							layer.open({
+								type: 2,
+								area: ["导入部门",'300px', '300px'],
+								fixed: false, //不固定
+								content: 'choosedepartment.html',
+								success: function (layero, index) {
+									//layer.close(index);
+								}
+							})
+						}else{
+							layer.msg("还没有选择员工")
+						}
 						break;
 				}
 			})
