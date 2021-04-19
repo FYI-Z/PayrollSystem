@@ -29,7 +29,7 @@ public class DepartmentServiceImp implements DepartmentService {
         if( departmentDao.del(departmentid)>=0){
             return ResultUtil.success(departmentid,Constant.RESCODE_SUCCESS,1);
         }else{
-           return ResultUtil.error(Constant.RESCODE_DELETEERROR,"删除失败");
+            return ResultUtil.error(Constant.RESCODE_DELETEERROR,"删除失败");
         }
     }
     /**
@@ -45,7 +45,9 @@ public class DepartmentServiceImp implements DepartmentService {
         }else if(name==""&&operator!=""){
             return findMsgByOper(operator);
         }else{
-            return findMsgByName(name);
+            List<Department> department = findMsgByName(name);
+            System.out.println(department);
+            return department;
         }
     }
 
@@ -59,7 +61,7 @@ public class DepartmentServiceImp implements DepartmentService {
         department.setDepartmentid(departSn);
         List<Department> repeat = departmentDao.findMsgAccByName(department.getName());
         if(repeat.size()==0){
-             flag = departmentDao.add(department.getDepartmentid(),department.getName(),
+            flag = departmentDao.add(department.getDepartmentid(),department.getName(),
                     department.getNumber(),department.getOperator(),
                     department.getCreatetime(),department.getRemark());
         }
