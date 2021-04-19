@@ -1,5 +1,6 @@
 package com.tomorrow.controller;
 
+import com.tomorrow.entity.JsonResult;
 import com.tomorrow.entity.User;
 import com.tomorrow.service.CheckService;
 import com.tomorrow.service.UserService;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -74,7 +76,7 @@ public class UserController {
      * @param count
      * @return
      */
-    @GetMapping("/createUser")
+    @RequestMapping("/createUser")
     public ReturnResult createUser(@RequestParam String userId,  @RequestParam String token, @RequestParam int count){
         //验证token
         int res = checkService.checkToken(userId,token);
@@ -255,7 +257,7 @@ public class UserController {
 
     /**
      * 庞海
-     * 搜索用户
+     * 通过工号搜索用户
      * @param userId
      * @param id
      * @param token
@@ -285,6 +287,56 @@ public class UserController {
         //搜索
         List<User> list = userService.findUserPower(id);
         return ResultUtil.success(list,Constant.RESCODE_SUCCESS,list.size());
+    }
+
+    /**
+     * 通过部门名搜索用户
+     * @param userId
+     * @param depart
+     * @param token
+     * @param power
+     * @return
+     */
+    @RequestMapping("/searchDepart")
+    public ReturnResult searchUserByDepart(@RequestParam String userId, @RequestParam String depart,  @RequestParam String token, @RequestParam String power){
+        //验证token
+        int res;
+        try{
+            res = checkService.checkToken(userId,token);
+        }catch (Exception e){
+            e.printStackTrace();
+            res = Constant.JWT_ERRCODE_FAIL;
+        }
+
+        if(Constant.JWT_ERRCODE_EXPIRE==res){
+            return ResultUtil.error(Constant.JWT_ERRCODE_EXPIRE,"token已过期");
+        }else if(Constant.JWT_ERRCODE_FAIL==res){
+            return ResultUtil.error(Constant.JWT_ERRCODE_FAIL,"验证不通过");
+        }
+        //验证是否有权操作
+        if(checkService.checkPower(userId,Constant.PRI_PERMISION)==Constant.RESCODE_NOAUTH){
+            return ResultUtil.error(Constant.RESCODE_NOAUTH,"无权操作");
+        }
+        //搜索
+        List<User> list = userService.findUserByDepart(depart);
+        return ResultUtil.success(list,Constant.RESCODE_SUCCESS,list.size());
+    }
+
+    /**
+     * 庞海
+     * 批量导入用户
+     * @param list
+     * @return
+     */
+    @RequestMapping("/updateUserDepart")
+    public ReturnResult updateUserDepartment(@RequestBody List<JsonResult> list){
+        int res = 0;
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getId()!=null){
+                res+=userService.updateUserDepart(list.get(i).getId(),list.get(i).getDepartment());
+            }
+        }
+        return ResultUtil.success("更新部门成功",Constant.RESCODE_SUCCESS,res);
     }
 
     /**

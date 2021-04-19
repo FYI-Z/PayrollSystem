@@ -15,6 +15,7 @@ public interface UserService {
     public User findUserById(String userId);
     public List<User> findAllUserInfo();
     public List<User> findAllUserPower();
+    public List<User> findUserByDepart(String depart);
     public int addUser(int count);
     public int updateUserPower(String userId,String power);
     public int updateUserStatus(String id, int status);

@@ -48,6 +48,11 @@ public class DepartmentController {
         return departments;
     }
 
+    @RequestMapping("/updateName")
+    public ReturnResult updateName(@RequestParam String name,String Oname,String remark){
+        return departmentService.update(name,Oname,remark);
+    }
+
     @RequestMapping("/echart")
     public List<Department> listEchart(){
         return departmentService.listEchart();

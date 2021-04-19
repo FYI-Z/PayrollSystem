@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css">
+    <script src="../lib/layui-v2.5.5/layui.js"></script>
+    <script src="../lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="../lib/layui-v2.5.5/lay/modules/table.js"></script>
+    <script src="../../js/router.js"></script>
+    <script src="../../js/Ajax.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="layui-card">
+    <form lay-filter="form" class="layui-form">
+        <div class="layui-card-header"></div>
+        <div class="layui-card-body">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">选择部门</label>
+                    <div class="layui-input-inline">
+                        <select id="sel" name="department" lay-verify="required" lay-search="" style="width: 50px"></select>
+                        <input type="hidden" id="category" lay-verify="category" name="category" autocomplete="off" class="layui-input"/>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="modify">立即导入</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    var that = this;
+    layui.use('form', function(){
+        var form = layui.form;
+        let sel = document.getElementById("sel");
+        let cat = document.getElementById("category");
+        $.ajax({
+            type : "get",
+            async : false,
+            url : "http://localhost:8888/department/echart",
+            dataType : "json",
+            success : function(result) {
+                for (var i = 0; i < result.length; i++) {
+                    sel.options.add(new Option(result[i].name));
+                }
+            }
+        });
+
+        layui.use('form', function(){
+            let form = layui.form;
+            let list = [];
+            let idList = parent.window.result; //获取已选择员工的信息
+            let selDepart = document.getElementById('sel').value //获取部门下拉框
+            list.push({"userId":localStorage.userId,"token":localStorage.token}) //加入验证信息
+            console.log(list)
+            //监听提交
+            form.on('submit(modify)', function(data){
+                let depart;
+                for (let i = 0; i < selDepart.length; i++) {
+                    if(sel[i].selected === true)
+                        depart = sel[i].value //部门下拉框选中状态的值
+                }
+                for (let i = 0; i < idList.length; i++) {
+                    var id = idList[i].userId;
+                    list.push({"id":id,"department":depart}) //加入要更改信息的id,department
+                }
+                $.ajax({
+                    type : "post",
+                    async : false,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+                    url : "http://localhost:8888/PayrollSystem/User/updateUserDepart",    //请求发送到modifyAllByIdServlet处
+                    data :JSON.stringify(list),
+                    contentType:'application/json;charset=UTF-8',
+                    dataType : "json",        //返回数据形式为json
+                    success : function(result) {
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);//关闭当前页
+                        parent.layui.table.reload('userinfo');
+                    }
+                });
+                return false;
+            });
+        });
+        console.log('渲染')
+    });
+</script>
+

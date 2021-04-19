@@ -1,13 +1,13 @@
 package com.tomorrow.service.imp;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.tomorrow.dao.AttendanceDao;
 import com.tomorrow.dao.UserDao;
+import com.tomorrow.entity.Attendance;
+import com.tomorrow.entity.Record;
 import com.tomorrow.entity.Salary;
 import com.tomorrow.entity.User;
-import com.tomorrow.service.RedisService;
-import com.tomorrow.service.SalaryService;
-import com.tomorrow.service.TokenService;
-import com.tomorrow.service.UserService;
+import com.tomorrow.service.*;
 import com.tomorrow.util.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +25,10 @@ public class UserServiceImp implements UserService {
     private RedisService redisService;
     @Autowired
     private SalaryService salaryService;
+    @Autowired
+    private RecordService recordService;
+    @Autowired
+    private AttendanceService attendanceService;
     @Override
     public String login(User user) {
         if(user == null){
@@ -83,9 +87,20 @@ public class UserServiceImp implements UserService {
                 return 0;
             }
             userDao.insert(user);
+            //新增薪资
             Salary salary = new Salary();
             salary.setUserid(user.getUserId());
             salaryService.addSalary(salary);
+
+            //新增奖惩
+            Record record = new Record();
+            record.setUserid(user.getUserId());
+            recordService.addRecord(record);
+
+            //新增考勤
+            Attendance attendance = new Attendance();
+            attendance.setUserid(user.getUserId());
+            attendanceService.addAttendance(attendance);
         }
         return t;
     }
@@ -95,6 +110,19 @@ public class UserServiceImp implements UserService {
         User user = null;
         QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
         queryWrapper.select("userId","name","permission");
+        List<User> list= userDao.selectList(queryWrapper);
+        return list;
+    }
+
+    @Override
+    public List<User> findUserByDepart(String depart) {
+        User user = null;
+        QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
+        queryWrapper.select("userId","name","age","sex","phone","department","position","permission","status");
+        if(depart=="")
+            queryWrapper.isNull("department");
+        else
+            queryWrapper.eq("department",depart);
         List<User> list= userDao.selectList(queryWrapper);
         return list;
     }
