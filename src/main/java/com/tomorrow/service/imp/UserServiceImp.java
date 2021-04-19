@@ -119,7 +119,10 @@ public class UserServiceImp implements UserService {
         User user = null;
         QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
         queryWrapper.select("userId","name","age","sex","phone","department","position","permission","status");
-        queryWrapper.eq("department",depart);
+        if(depart=="")
+            queryWrapper.isNull("department");
+        else
+            queryWrapper.eq("department",depart);
         List<User> list= userDao.selectList(queryWrapper);
         return list;
     }
