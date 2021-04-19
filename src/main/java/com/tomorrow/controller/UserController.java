@@ -255,7 +255,7 @@ public class UserController {
 
     /**
      * 庞海
-     * 搜索用户
+     * 通过工号搜索用户
      * @param userId
      * @param id
      * @param token
@@ -284,6 +284,31 @@ public class UserController {
         }
         //搜索
         List<User> list = userService.findUserPower(id);
+        return ResultUtil.success(list,Constant.RESCODE_SUCCESS,list.size());
+    }
+
+    @RequestMapping("/searchDepart")
+    public ReturnResult searchUserByDepart(@RequestParam String userId, @RequestParam String depart,  @RequestParam String token, @RequestParam String power){
+        //验证token
+        int res;
+        try{
+            res = checkService.checkToken(userId,token);
+        }catch (Exception e){
+            e.printStackTrace();
+            res = Constant.JWT_ERRCODE_FAIL;
+        }
+
+        if(Constant.JWT_ERRCODE_EXPIRE==res){
+            return ResultUtil.error(Constant.JWT_ERRCODE_EXPIRE,"token已过期");
+        }else if(Constant.JWT_ERRCODE_FAIL==res){
+            return ResultUtil.error(Constant.JWT_ERRCODE_FAIL,"验证不通过");
+        }
+        //验证是否有权操作
+        if(checkService.checkPower(userId,Constant.PRI_PERMISION)==Constant.RESCODE_NOAUTH){
+            return ResultUtil.error(Constant.RESCODE_NOAUTH,"无权操作");
+        }
+        //搜索
+        List<User> list = userService.findUserByDepart(depart);
         return ResultUtil.success(list,Constant.RESCODE_SUCCESS,list.size());
     }
 

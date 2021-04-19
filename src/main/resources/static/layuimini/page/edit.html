@@ -14,19 +14,18 @@
 <div class="layui-card">
     <form lay-filter="form" class="layui-form">
         <div class="layui-form-item">
-<!--                <label class="layui-form-label">工号</label>-->
             <div class="layui-input-block">
                 <input type="text" style="display: none;" id="id" name="id" lay-verify="id" autocomplete="off" value="" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">真实姓名</label>
+            <label class="layui-form-label">真实姓名<span style="color: red">*</span></label>
             <div class="layui-input-block">
                 <input type="text" id="name" name="name" lay-verify="name" style="width: 250px" autocomplete="off" value="" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">性别</label>
+            <label class="layui-form-label">性别<span style="color: red">*</span></label>
             <div id="sex" class="layui-input-block">
                 <input type="radio" name="sex" id="man" value="男" title="男">
                 <input type="radio" name="sex" id="women" value="女" title="女">
@@ -46,10 +45,11 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">所属部门</label>
+                <label class="layui-form-label">所属部门<span style="color: red">*</span></label>
                 <div class="layui-input-inline">
-                    <select id="sel" name="department" lay-verify="required" lay-search=""></select>
-                    <input type="hidden" id="category" lay-verify="category" name="category" autocomplete="off" class="layui-input"/>
+                    <select id="sel" name="department" lay-verify="required" lay-search="">
+                        <option value=""></option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -105,7 +105,7 @@ layui.use('form', function(){
                     sel[i].selected = false;
                     if (result[i].name === that.department) {
                         sel[i].selected = true;
-                        break;
+                        continue;
                     }
                 }
             }
