@@ -145,11 +145,12 @@ public class SalaryServiceImp implements SalaryService {
         List<User> users = userDao.selectList(queryWrapper1);
         List<Salary> salaryList = new ArrayList<>();
 
-        QueryWrapper<Salary> queryWrapper2 = new QueryWrapper<>();
+        QueryWrapper<Salary> queryWrapper2;
         for(int i = 0 ; i < users.size() ; i++){
+            queryWrapper2 = new QueryWrapper<>();
             queryWrapper2.eq("userid", users.get(i).getUserId());
             Salary salary = salaryDao.selectOne(queryWrapper2);
-            salaryList.add(salary);
+            if(salary != null) salaryList.add(salary);
         }
         return salaryList;
     }

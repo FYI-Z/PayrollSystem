@@ -40,10 +40,10 @@
         url : "http://localhost:8888/PayRollSystem/Salary/findSalaryByOne",
         data : {
             'key':'userId',
-            'value':'20213630'
+            'value':localStorage.userId
         },
         headers:{
-            "token":'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIxMTMwMiIsInVzZXJJZCI6IjIwMjExMzAyIiwibmFtZSI6IiIsInNleCI6IueUtyIsImFnZSI6IueUtyIsImRlcGFydG1lbnQiOiLkurrlipvotYTmupDpg6giLCJwaG9uZSI6IiIsInBlcm1pc3Npb24iOiIwLDAsMCwwLDAiLCJpYXQiOjE2MTg4NTA3NzR9.1qC89YMFda_F2S8S-LDT3qpqlX2qTS3Tjsq9kYsFFck'
+            "token":localStorage.token
         },
         dataType : "json",        //返回数据形式为json
         success : function(result) {

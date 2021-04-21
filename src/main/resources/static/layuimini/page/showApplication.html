@@ -27,7 +27,7 @@
             , method: 'POST'
             , toolbar: '#toolbarDemo'
             ,headers:{
-                'token': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIxNDI0MyIsInVzZXJJZCI6IjIwMjE0MjQzIiwibmFtZSI6IiIsInNleCI6IueUtyIsImFnZSI6IueUtyIsImRlcGFydG1lbnQiOiLotKLliqHpg6giLCJwaG9uZSI6IiIsInBlcm1pc3Npb24iOiIwLDEsMCwwLDEiLCJpYXQiOjE2MTg4NTkyOTJ9.GLHRPsw7xTc2R2In-xEUzo4LVDMR6PNsRBqyrOPzBTs'
+                'token': localStorage.token
             }
             , page: true //开启分页
             , cols: [[ //表头
@@ -85,7 +85,7 @@
             contentType:'application/json;charset=UTF-8',
             data:datas,
             headers: {
-              'token':'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIxNDI0MyIsInVzZXJJZCI6IjIwMjE0MjQzIiwibmFtZSI6IiIsInNleCI6IueUtyIsImFnZSI6IueUtyIsImRlcGFydG1lbnQiOiLotKLliqHpg6giLCJwaG9uZSI6IiIsInBlcm1pc3Npb24iOiIwLDEsMCwwLDEiLCJpYXQiOjE2MTg4NTkyOTJ9.GLHRPsw7xTc2R2In-xEUzo4LVDMR6PNsRBqyrOPzBTs'
+              'token':localStorage.token
             },
             dataType : "json",        //返回数据形式为json
             success : function(result) {

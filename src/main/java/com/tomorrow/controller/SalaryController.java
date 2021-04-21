@@ -134,7 +134,7 @@ public class SalaryController {
         }
     }
 
-    @PostMapping(value = "/findByDe")
+    @GetMapping(value = "/findByDe")
     @ResponseBody
     public ReturnResult findSalaryByDep(@RequestParam String department){
         if(department == null){

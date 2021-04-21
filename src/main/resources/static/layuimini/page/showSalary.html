@@ -7,6 +7,7 @@
     <script src="../lib/layui-v2.5.5/layui.js"></script>
     <script src="../lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
     <script src="../lib/layui-v2.5.5/lay/modules/table.js"></script>
+    <script src="../lib/layui-v2.5.5/lay/modules/form.js"></script>
 </head>
 
 <div id="standard" style="display: none">
@@ -31,6 +32,16 @@
 </div>
 
 <body>
+<form class="layui-form">
+<div class="layui-inline">
+    <label class="layui-form-label">选择想要查看的部门</label>
+    <div class="layui-input-block">
+        <select name="dep" id="dep" lay-filter="dep">
+
+        </select>
+    </div>
+</div>
+</form>
 <table id="salaryList" lay-filter="salaryList"></table>
 <script type="text/html" id="barDemo" lay-filter="barDemo">
     <a id="pass" class="layui-btn layui-btn-xs" lay-event="pass">审核通过</a>
@@ -45,6 +56,25 @@
     that = this
     var basicSalary
     var curr
+
+    $.ajax({
+        type : "get",
+        async : false,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url : "http://localhost:8888/department/findAll?limit=999",
+        contentType:'application/json;charset=UTF-8',
+        dataType : "json",        //返回数据形式为json
+        success : function(result) {
+            console.log(result)
+            var department = document.getElementById('dep')
+            for(var i = 0 ; i < result.length ; i++){
+                department.options.add(new Option(result[i].name,result[i].name))
+            }
+        },
+        error : function(errorMsg) {
+
+        }
+    })
+
     layui.use('table', function(){
         var table = layui.table;
 
@@ -55,8 +85,8 @@
             ,method:'POST'
             ,toolbar:'#toolbarDemo'
             ,where:{
-                'userId':"123456",
-                'token':'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTYiLCJ1c2VySWQiOiIxMjM0NTYiLCJuYW1lIjoi5byg5LiJIiwic2V4Ijoi5aWzIiwiYWdlIjoi5aWzIiwiZGVwYXJ0bWVudCI6IuS6uuWKm-i1hOa6kOmDqCIsInBvc2l0aW9uIjoi6JGj5LqL6ZW_IiwicGhvbmUiOiIxNzM4ODQzMjE5NCIsInBlcm1pc3Npb24iOiIxLDEsMSwwLDAiLCJpYXQiOjE2MTg3Njc5MTR9.G3DyyJ92vgYh3j34SbaojWYWmsR_Cd08kCljzegcuLc'
+                'userId':localStorage.userId,
+                'token':localStorage.token
             }
             ,page: true //开启分页
             ,cols: [[ //表头
@@ -70,7 +100,6 @@
                 ,{field: 'absenteeism', title: '旷工扣薪', width: 100}
                 ,{field: 'actual', title: '实发工资', width: 135, sort: true}
                 ,{field: 'salaryStatus', title: '薪资审核状态', templet:function(d){
-                    console.log(d)
                         if(d.salaryStatus == "通过"){
                             return '<span style="color:green"> 通过 </span>';
                         }else if(d.salaryStatus == "未通过"){
@@ -120,7 +149,7 @@
                                     contentType:'application/json;charset=UTF-8',
                                     data : datas,
                                     headers:{
-                                        "token":'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwNDU3ODciLCJ1c2VySWQiOiIwNDU3ODciLCJuYW1lIjoi5byg5LiJIiwic2V4Ijoi55S3IiwiYWdlIjoi55S3IiwiZGVwYXJ0bWVudCI6Iui0ouWKoemDqOmXqCIsInBob25lIjoiMTczODg0MzIxOTQiLCJwZXJtaXNzaW9uIjoiMSwxLDEsMSwwIiwiaWF0IjoxNjE4NjgwNTk0fQ.ap3dvWqzK1BjylR300hFxY2tqpnPUC5P5x1X3ZONpos'
+                                        "token":localStorage.token
                                     },
                                     dataType : "json",        //返回数据形式为json
                                     success : function(result) {
@@ -193,7 +222,7 @@
                         contentType:'application/json;charset=UTF-8',
                         data : datas,
                         headers:{
-                            "token":'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIxMTMwMiIsInVzZXJJZCI6IjIwMjExMzAyIiwibmFtZSI6IiIsInNleCI6IueUtyIsImFnZSI6IueUtyIsImRlcGFydG1lbnQiOiLkurrlipvotYTmupDpg6giLCJwaG9uZSI6IiIsInBlcm1pc3Npb24iOiIwLDAsMCwwLDAiLCJpYXQiOjE2MTg4NTA3NzR9.1qC89YMFda_F2S8S-LDT3qpqlX2qTS3Tjsq9kYsFFck'
+                            "token":localStorage.token
                         },
                         dataType : "json",        //返回数据形式为json
                         success : function(result) {
@@ -217,6 +246,204 @@
         });
 
     });
+
+
+    layui.use(['element','form'], function(){
+        var element = layui.element;
+        var form = layui.form;
+        var  layer = layui.layer;
+
+        form.on('select(dep)', function (data) {
+            $.ajax({
+                type : "get",
+                async : false,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+                url : "http://localhost:8888/PayRollSystem/Salary/findByDe",    //请求发送到UserServlet处
+                contentType:'application/json;charset=UTF-8',
+                data: {
+                    'department':data.value,
+                },
+                dataType : "json",        //返回数据形式为json
+                success : function(result) {
+                    getDataByDep(data.value)
+                },
+                error : function(errorMsg) {
+
+                }
+            })
+        });
+    })
+
+    function getDataByDep(department){
+        layui.use('table', function(){
+            var table = layui.table;
+            var tableObj = table.render({
+                elem: '#salaryList'
+                ,height: 518
+                ,url: 'http://localhost:8888/PayRollSystem/Salary/findByDe?' + "department=" + department //数据接口
+                ,method:'GET'
+                ,toolbar:'#toolbarDemo'
+                ,page: true //开启分页
+                ,cols: [[ //表头
+                    {field: 'userid', title: '用户id', width:150, sort: true, fixed: 'left'}
+                    ,{field: 'basicSalary', title: '基础工资', width:100, edit : 'text'}
+                    ,{field: 'overtime', title: '加班薪资', width:100}
+                    ,{field: 'commission', title: '提成薪资', width:100, edit : 'text'}
+                    ,{field: 'bonus', title: '奖金', width: 100, edit : 'text'}
+                    ,{field: 'vacate', title: '请假扣薪', width: 100}
+                    ,{field: 'late', title: '迟到扣薪', width: 100}
+                    ,{field: 'absenteeism', title: '旷工扣薪', width: 100}
+                    ,{field: 'actual', title: '实发工资', width: 135, sort: true}
+                    ,{field: 'salaryStatus', title: '薪资审核状态', templet:function(d){
+                            if(d.salaryStatus == "通过"){
+                                return '<span style="color:green"> 通过 </span>';
+                            }else if(d.salaryStatus == "未通过"){
+                                return '<span style="color:red"> 未通过 </span>';
+                            }
+                        },width: 150}
+                    ,{fixed: 'right', title: '操作', toolbar: '#barDemo', width: 200}
+                ]]
+                ,parseData: function(res){ //将原始数据解析成 table 组件所规定的数据
+                    if(res.data != null){
+                        that.basicSalary = res.data.basicSalary
+                        that.curr = this.page.curr;		//设置本页
+                        if (this.page.curr) {
+                            result = res.data.slice(this.limit * (this.page.curr - 1), this.limit * this.page.curr);
+                        } else {
+                            result = res.data.slice(0, this.limit);
+                        }
+                        return {
+                            "code": 0, //解析接口状态
+                            "msg": res.msg, //解析提示文本
+                            "data": result, //解析数据列表
+                            "count": res.count
+                        };
+                    }
+                }
+            });
+
+            //头工具栏事件
+            table.on('toolbar(salaryList)', function(obj){
+                switch(obj.event){
+                    case 'setStandard':
+                        getStandardData();
+                        layer.open({
+                            type:1
+                            ,area:['600px','350px']
+                            ,content:$('#standard')
+                            ,btn: ['确认修改']
+                            ,yes: function(index, layero){
+                                layer.confirm('您确定要修改信息吗?<br>该修改将会重新计算所有员工的薪资',{btn: ['确定', '取消'],title:"提示"}, function(){
+                                    var datas = JSON.stringify({
+                                        "lateStandard":$("#late").val(),
+                                        "overtimeStandard":$("#overtime").val(),
+                                        "absenteeismStandard":$("#absenteeism").val()
+                                    })
+                                    $.ajax({
+                                        type : "POST",
+                                        async : false,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+                                        url : "http://localhost:8888/PayRollSystem/Standard/update",
+                                        contentType:'application/json;charset=UTF-8',
+                                        data : datas,
+                                        headers:{
+                                            "token":localStorage.token
+
+                                        },
+                                        dataType : "json",        //返回数据形式为json
+                                        success : function(result) {
+                                            if(result.msg == "更新结果为空"){
+                                                layer.msg("更新错误或没有权限")
+                                            }else if(result.msg == "更新成功"){
+                                                layer.msg("更新成功")
+                                            }
+                                        },
+                                        error : function(errorMsg) {
+
+                                        }
+                                    })
+                                    layer.close(index);
+                                })
+
+                            }
+                        });
+                        break;
+                };
+            });
+
+            table.on('tool(salaryList)', function(obj){
+                console.log(obj)
+                switch(obj.event) {
+                    case 'pass':
+                        layer.confirm('确认？', function(){
+                            changeStatus(obj.data.userid,"通过");
+                            tableObj.reload({
+                                page: {
+                                    curr: that.curr //重新从第 1 页开始
+                                }
+                            });
+                            layer.close();
+                        })
+                        break;
+                    case 'reject':
+                        layer.confirm('确认？', function(){
+                            changeStatus(obj.data.userid,"未通过");
+                            tableObj.reload({
+                                page: {
+                                    curr: that.curr //重新从第 1 页开始
+                                }
+                            });
+                            layer.close();
+                        })
+                        break;
+                }
+            })
+
+            table.on('edit(salaryList)', function(obj){
+                var value = obj.value //得到修改后的值
+                    ,data = obj.data //得到所在行所有键值
+                    ,userId = data.userid
+                    ,basicSalary = data.basicSalary
+                    ,bonus = data.bonus
+                    ,commission = data.commission
+                    ,f = obj.field; //得到字段
+                var datas = JSON.stringify({
+                    "userid":userId,
+                    "basicSalary":basicSalary,
+                    "bonus":bonus,
+                    "commission":commission
+                })
+                layer.confirm('确认要修改该员工工资吗？', function(){
+                    $.ajax({
+                        type : "POST",
+                        async : false,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+                        url : "http://localhost:8888/PayRollSystem/Salary/update",
+                        contentType:'application/json;charset=UTF-8',
+                        data : datas,
+                        headers:{
+                            "token":localStorage.token
+                        },
+                        dataType : "json",        //返回数据形式为json
+                        success : function(result) {
+                            tableObj.reload({
+                                page: {
+                                    curr: that.curr //重新从第 1 页开始
+                                }
+                            });
+                            if(result.msg == "修改失败"){
+                                layer.msg("申请提交失败或没有权限")
+                            }else if(result.msg == "成功"){
+                                layer.msg("申请提交成功")
+                            }
+                        },
+                        error : function(errorMsg) {
+
+                        }
+                    })
+                    layer.close();
+                })
+            });
+
+        });
+    }
 
     function changeStatus(userid,statused){
         $.ajax({
