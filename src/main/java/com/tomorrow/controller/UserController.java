@@ -69,6 +69,17 @@ public class UserController {
     }
 
     /**
+     * 蔡琪深
+     * 获取所有用户的基本信息（无token）
+     * @return
+     */
+    @RequestMapping("/getAllUser")
+    public ReturnResult getAllUser(){
+        //查询所有人的信息
+        List<User> list = userService.findAllUserInfo();
+        return ResultUtil.success(list,Constant.RESCODE_SUCCESS,list.size());
+    }
+    /**
      * 庞海
      * 创建用户
      * @param userId
