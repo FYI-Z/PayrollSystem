@@ -29,11 +29,12 @@ public class Constant {
      * redis
      */
     public static final String REDIS_HOST = "8.136.234.32";  //主机ip
-    public static final int REDIS_PORT = 6379;                //端口号
+    public static final int REDIS_PORT = 6354;                //端口号
+    public static final String REDIS_PASS = "Admin123";        //连接redis密码
     public static final int REDIS_EXPIRE_TIME = 60*30;  //设置TTL为30分钟
     public static final int REDIS_MAX_ACTIVE = 1024;          //最大连接数
     public static final int REDIS_MAX_IDLE = 100;             //最大空闲连接数
-    public static final long REDIS_MAX_WAIT = 1000*10;        //获取可用连接的最大等待时间
+    public static final int REDIS_MAX_WAIT = 1000*10;        //获取可用连接的最大等待时间
 
     /**
      * 权限

@@ -21,7 +21,7 @@ public class RedisServiceImp implements RedisService {
                     jedisPoolConfig.setMaxTotal(Constant.REDIS_MAX_ACTIVE); //最大连接数
                     jedisPoolConfig.setMaxIdle(Constant.REDIS_MAX_IDLE); //最大空闲连接数
                     jedisPoolConfig.setMaxWaitMillis(Constant.REDIS_MAX_WAIT);//获取可用连接的最大等待时间
-                    jedisPool = new JedisPool(jedisPoolConfig,Constant.REDIS_HOST,Constant.REDIS_PORT);
+                    jedisPool = new JedisPool(jedisPoolConfig,Constant.REDIS_HOST,Constant.REDIS_PORT,Constant.REDIS_MAX_WAIT, Constant.REDIS_PASS);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
